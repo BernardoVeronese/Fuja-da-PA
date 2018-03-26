@@ -2,7 +2,7 @@ import pygame
 import math
 
 #Simple player object
-class Bot(pygame.sprite.Sprite):
+class Heli(pygame.sprite.Sprite):
     '''In main:
         heli = Heli(parameters)
         heli.follow()
