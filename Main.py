@@ -37,6 +37,9 @@ pygame.init()
 #Função que será responsável por lidar com os eventos do jogo
 def game(level):
 
+    score = 0
+    time_initial = pygame.time.get_ticks()
+
     while True:
 
         keys = pygame.key.get_pressed()
@@ -48,6 +51,15 @@ def game(level):
             Player.move(1, 0)
         if keys[K_DOWN]:
             Player.move(0, -1)
+
+        # Atualização de Score e Verificação de Flags das etapas dos Jogos
+        if level.verificamissao(Player.x, Player.y):
+            score += 1000-5*(level.time_flag/1000-time_initial/1000) #modelo de Score
+
+        if level.vencedor(level):
+            #Mensagem de parabéns
+            #Registrar Score
+            nivel()
 
         pygame.display.update()  # update na tela
 
@@ -80,11 +92,10 @@ def nivel():
         #elif result(0) == 'fase3':
          #   fase = fase3()
 
-        game(fase)
-
         pygame.display.update()
         clock.tick(20)
 
+        game(fase)
 
 def main(): #Função que promove o menu de início de Jogo
 
