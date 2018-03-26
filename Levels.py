@@ -8,6 +8,9 @@ class fase1:
     flag1 = False
     flag2 = False
 
+    #Conta o score relacionado à missão
+    score = 0
+
     # Asset relacionada à missão 1
     M1X =  # 19.9cm
     M1Y =  # 3.5cm
@@ -30,6 +33,10 @@ class fase1:
     FUNDWIDTH =  # 4.4cm
     FUNDHEIGHT =  # 3.7cm
 
+    def __init__(self):
+        pygame.image.load(".\\Data\\Mapa.png")
+        #Colocar inicio do relogio
+
     def obstaculo(self, x, y):
         if RANCHOX < x < RANCHOX+RANCHOWIDTH and RANCHOY < y < RANCHOY+RANCHOHEIGHT:
             return True
@@ -40,11 +47,13 @@ class fase1:
     def verificamissao(self, x, y):
         if M1X < x and y < M1Y:
             flag1 = True
-            #Inseir texto de primeira parte cumprida
+            #Inserir texto de primeira parte cumprida
+            #Contar pontuação
         if M2X < x < M2X+M2WIDTH and M2Y < y < M2Y+M2HEIGHT:
             if flag1:
                 flag2 = True
-            # Inseir texto de segunda parte cumprida
+            #Inserir texto de segunda parte cumprida
+            #Contar pontuação
 
     def vencedor(self):
         if flag1 and flag2:
@@ -53,14 +62,18 @@ class fase1:
         return False
 
     def street(self, x, y):
+        if y < #4,5cm
+            if x < or < x < or < x <
+                return False
+        elif < y <
+            if < x < or < x <
+                return False
+        elif < y and < x <
+            return False
+        elif < y < and < x <
+            return False
+        return True
 
+#class fase2:
 
-
-class fase2:
-
-
-def level1():
-    return fase1
-
-def level2():
-    return fase2
+#class fase3:

@@ -9,8 +9,8 @@ from Functions import *
 from Levels import *
 
 # Parâmetros da Tela
-SCREENWIDTH = 600
-SCREENHEIGHT = 1000
+SCREENWIDTH = 1000
+SCREENHEIGHT = 600
 
 #Parâmetros de dimensão do Botão
 BUTTONWIDTH = 100
@@ -27,64 +27,95 @@ BRIGHT_GREEN = (0, 255,   0)
 # Variaveis Globais
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode([SCREENWIDTH, SCREENHEIGHT])
+highsc1 = 0
+highsc2 = 0
+highsc3 = 0
 
 # Inicialização de pacotes Pygame
 pygame.init()
 
 #Função que será responsável por lidar com os eventos do jogo
-def game():
+def game(level):
 
     while True:
 
         keys = pygame.key.get_pressed()
         if keys[K_LEFT]:
-            if fase.obstaculo == False:
-                Player.move(-1, 0)
+            Player.move(-1, 0)
         if keys[K_UP]:
-            if fase.obstaculo == False:
-                Player.move(0, 1)
+            Player.move(0, 1)
         if keys[K_RIGHT]:
-            if fase.obstaculo == False:
-                Player.move(1, 0)
+            Player.move(1, 0)
         if keys[K_DOWN]:
-            if fase.obstaculo == False:
-                Player.move(0, -1)
+            Player.move(0, -1)
 
         pygame.display.update()  # update na tela
 
+#Função relacionada a mostrar os HighScores
+#def highscore():
+    #Printar highsc1
+    #Printar highsc2
+
 #Função que promove o menu de escolha de Fases
 def nivel():
+    Font = pygame.font.SysFont("calibri", 14)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-        screen.fill(WHITE)
-        fase = button("Fase 1", 150, 450, BUTTONWIDTH, BUTTONHEIGHT, GREEN, BRIGHT_GREEN, level1)
-        fase = button("Fase 2", 350, 450, BUTTONWIDTH, BUTTONHEIGHT, RED, BRIGHT_RED, level2)
+        ItemsJogar = [
+            ('Nível 1', 'fase1', 'button'),
+            ('Nível 2', 'fase2', 'button'),
+            ('Nível 3', 'fase3', 'button')
+        ]
+
+        result = menu(screen, ItemsJogar, 30, 200, 30, 30, 50, 300, Font)
+
+        if result(0) == 'fase1':
+            fase = fase1()
+        #elif result(0) == 'fase2':
+         #   fase = fase2()
+        #elif result(0) == 'fase3':
+         #   fase = fase3()
+
+        game(fase)
 
         pygame.display.update()
         clock.tick(20)
 
-#Função que promove o menu de início de Jogo
-def main():
+
+def main(): #Função que promove o menu de início de Jogo
+
+    #Definição de Legenda da Tela
     pygame.display.set_caption("Game - Fuja da PA!")
+    #Preenchimento da Tela em branco
     screen.fill(WHITE)
 
+    Font = pygame.font.SysFont("calibri", 14)
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                quitgame()
 
-        largetext = pygame.font.SysFont("calibri", 115)
-        textsurf, textrect = ("Fuja da PA!", largetext)
-        textrect.center = ((SCREENWIDTH / 2), (3*SCREENHEIGHT / 4))
-        screen.blit(textsurf, textrect)
+        Items = [('Fuja da PA', 'jogar', 'button'),
+                 ('Highscores', 'score', 'button'),
+                 ('Quit', 'exit', 'button'),
+                 ]
 
-        button("Fuja da PA!", 150, 450, BUTTONWIDTH, BUTTONHEIGHT, GREEN, BRIGHT_GREEN, nivel)
-        button("Quit", 350, 450, BUTTONWIDTH, BUTTONHEIGHT, RED, BRIGHT_RED, quitgame)
+        result = menu(screen, Items, 30, 200, 30, 30, 50, 300, Font)
+
+        if result[0] == 'exit':
+            quitgame()
+        elif result[0] == 'jogar':
+            nivel()
+        elif result[0] == 'score':
+            i = 0
+            #highscore()
 
         pygame.display.update()
         clock.tick(20)
+
+if __name__ == '__main__': main()
