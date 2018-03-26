@@ -9,5 +9,5 @@ class GeographyGraph(object):
 
     # Method to draw object
     def draw(self):
-        window.blit(self.image, (self.x, self.y))  # mudar para load image algo
+        screen.blit(self.image, (self.x, self.y))  # mudar para load image algo
        
