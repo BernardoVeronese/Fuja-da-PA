@@ -1,10 +1,11 @@
 import pygame
 
 #Simple player object
-class Bot(object):
+class Bot(pygame.sprite.Sprite):
 
     # Initialization
     def __init__(self,x,y,image,speed):
+        pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
         self.image = image
