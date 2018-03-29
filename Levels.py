@@ -36,6 +36,9 @@ class fase1:
         BackGround = Background('.\Data\Mapa.png', [0, 0])
         screen.blit(BackGround.image, BackGround.rect)
 
+    def file(self):
+        return './Data/highscore1.txt'
+
     def obstaculo(self, x, y):
         if fase1.RANCHOX < x < fase1.RANCHOX+fase1.RANCHOWIDTH and fase1.RANCHOY < y < fase1.RANCHOY+fase1.RANCHOHEIGHT:
             return True
@@ -76,6 +79,12 @@ class fase1:
             return False
         return True
 
-#class fase2:
+class fase2:
 
-#class fase3:
+    def file(self):
+        return './Data/highscore2.txt'
+
+class fase3:
+
+    def file(self):
+        return './Data/highscore3.txt'
