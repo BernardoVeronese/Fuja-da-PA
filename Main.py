@@ -38,18 +38,29 @@ def game(level):
 
     score = 0
     time_initial = pygame.time.get_ticks()
+    player = Player(x,y,angle)
+    if level.id == '1':
+        bot_1 = Bot(x,y,image,speed)
+        bot_2 = Bot(x, y, image, speed)
 
+    if level.id == '2':
+        bot_1 = Bot(x,y,image,speed)
+        bot_2 = Heli(x,y,angle)
+
+    if level.id == '3':
+        bot_1 = Heli(x,y,angle)
+        bot_2 = Heli(x,y,angle)
+
+    #FALTA PEGAR EVENTOS EM CADA LOOP
     while True:
 
-        keys = pygame.key.get_pressed()
-        if keys[K_LEFT]:
-            Player.move(-1, 0)
-        if keys[K_UP]:
-            Player.move(0, 1)
-        if keys[K_RIGHT]:
-            Player.move(1, 0)
-        if keys[K_DOWN]:
-            Player.move(0, -1)
+        # GET EVENT
+        event = pygame.event.get()
+        player.handle_event(event)
+        player.move(terrain_factor, angle_step)
+        bot_1.follow(player.x,player.y)
+        bot_2.follow(player.x, player.y)
+
 
         # Atualização de Score e Verificação de Flags das etapas dos Jogos
         if level.verificamissao(Player.x, Player.y):

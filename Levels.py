@@ -35,6 +35,7 @@ class fase1:
     def __init__(self):
         BackGround = Background('.\Data\Mapa.png', [0, 0])
         screen.blit(BackGround.image, BackGround.rect)
+        self.id = '1'
 
     def file(self):
         return './Data/highscore1.txt'

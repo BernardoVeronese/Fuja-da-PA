@@ -22,7 +22,7 @@ class Bot(pygame.sprite.Sprite):
         window.blit(self.image,(self.x,self.y))#mudar para load image algo
 
     #Method to move object (special input of dx and dy)
-    def follow(self):
+    def follow(self, playerx, playery):
         if self.in_node:
             #self.next_node = Djikstra algorithm
 
