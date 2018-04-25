@@ -88,3 +88,6 @@ class Player(pygame.sprite.Sprite):
         #x, y = self.rect.center  # Save its current center.
         self.rect = self.image.get_rect()  # Replace old rect with new rect.
         self.rect.center = (self.x, self.y)  # Put the new rect's center at old center.
+
+    def collided(self,sprite):
+        return self.rect.colliderect(sprite.rect)
