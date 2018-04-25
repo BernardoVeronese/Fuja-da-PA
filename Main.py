@@ -46,7 +46,7 @@ screen = pygame.display.set_mode([SCREENWIDTH, SCREENHEIGHT]) #tela
 pygame.init()
 
 #Função que será responsável por lidar com os eventos do jogo
-def game(level):
+def game(level):#CHANGE TO GAME.PY
 
     score = 0
     time_initial = pygame.time.get_ticks()
@@ -120,7 +120,7 @@ def highscore():  # Função que promove o menu para visualização de HighScore
         pygame.display.update()  # Atualização do Display
         clock.tick(20)  # Time do relógio
 
-
+#CHANGE TO LEVELSELECTION.PY
 def nivel():  # Função que promove o menu de escolha de Fases
     while True:
         for event in pygame.event.get():

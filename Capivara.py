@@ -6,10 +6,10 @@ from random import *
 class Capivara(pygame.sprite.Sprite):
 
     # Initialization
-    def __init__(self,x0,y0):
+    def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.x = x0
-        self.y = y0
+        self.x = 0
+        self.y = 0
         self.state = False
         self.original_image = pygame.image.load(os.path.join('assets\car.png'))#change path directory
         self.image = self.original_image
