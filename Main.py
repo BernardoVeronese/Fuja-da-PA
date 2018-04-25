@@ -1,11 +1,13 @@
-#Importação de bibliotecas necessárias
-from Functions import * #Functions.py
-from Levels import * #Levels.py
-from Player import * #Player.py
-from highscore import * #highscore.py
-import pygame #módulo do Pygame
-import sys #módulo do Sistema
-from pygame.locals import * #Continuação do módulo do Pygame
+import pygame
+import sys
+import time
+from pygame.locals import *
+from Bot import Bot
+from GeographyGraph import GeographyGraph
+from Player import Player
+from Functions import *
+from Levels import *
+from highscore import *
 
 # Parâmetros da Tela
 SCREENWIDTH = 1000 #largura
@@ -24,82 +26,85 @@ BRIGHT_RED = (255,   0,   0)
 BRIGHT_GREEN = (0, 255,   0)
 GREY = (150, 150, 150)
 
-# Inicialização de pacote Pygame
-pygame.init()
-
 # Variaveis Globais
-clock = pygame.time.Clock() #inicialização de relógio
-screen = pygame.display.set_mode([SCREENWIDTH, SCREENHEIGHT]) #inicialização de tela
-letra = pygame.font.get_default_font()
+clock = pygame.time.Clock()
+screen = pygame.display.set_mode([SCREENWIDTH, SCREENHEIGHT])
+
+# Inicialização de pacotes Pygame
+pygame.init()
 
 #Função que será responsável por lidar com os eventos do jogo
 def game(level):
 
-    score = 0 #Ao iniciar o jogo, o Score é zero
-    time_initial = pygame.time.get_ticks() #Coleta de tempo inicial de início do jogo
+    score = 0
+    time_initial = pygame.time.get_ticks()
+    player = Player(x,y,angle)
+    if level.id == '1':
+        bot_1 = Bot(x,y,image,speed)
+        bot_2 = Bot(x, y, image, speed)
 
-    while True: #Loop
-        #Movimento do Player
-        keys = pygame.key.get_pressed()
-        if keys[K_LEFT]:
-            Player.move(-1, 0)
-        if keys[K_UP]:
-            Player.move(0, 1)
-        if keys[K_RIGHT]:
-            Player.move(1, 0)
-        if keys[K_DOWN]:
-            Player.move(0, -1)
+    if level.id == '2':
+        bot_1 = Bot(x,y,image,speed)
+        bot_2 = Heli(x,y,angle)
+
+    if level.id == '3':
+        bot_1 = Heli(x,y,angle)
+        bot_2 = Heli(x,y,angle)
+
+    #FALTA PEGAR EVENTOS EM CADA LOOP
+    while True:
+
+        # GET EVENT
+        event = pygame.event.get()
+        player.handle_event(event)
+        player.move(terrain_factor, angle_step)
+        bot_1.follow(player.x,player.y)
+        bot_2.follow(player.x, player.y)
+
 
         # Atualização de Score e Verificação de Flags das etapas dos Jogos
         if level.verificamissao(Player.x, Player.y):
             score += 1000-5*(level.time_flag/1000-time_initial/1000) #modelo de Score
 
-        # Verifica se o Player já é vencedor na Fase
         if level.vencedor(level):
             # Mensagem de parabéns
-            get_score(screen, level.file, score) #pega a pontuação
-            nivel() #Volta ao menu de fases disponíveis
+            get_score(screen, level.file, score)
+            nivel()
 
         pygame.display.update()  # update na tela
 
 #Função que mostra todos os HighScores
 def highscore():
-    while True: #Lidar com evento de Quit!
-        flag = 0 #Flag para verificar se algum botão foi apertado
+    Font = pygame.font.SysFont("calibri", 14)
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-        ItemsJogar = [
-            ('Nível 1', 'fase1', 'button'),
-            ('Nível 2', 'fase2', 'button'),
-            ('Nível 3', 'fase3', 'button'),
-            ('Voltar', 'voltar', 'button')
-        ] #um botão para cada fase
-        result = menu(screen, ItemsJogar, 30, 200, 30, 30, BUTTONHEIGHT, BUTTONWIDTH, letra) #criação de menu
 
-        # Verificação se o botão foi pressionado
-        if result[0] == 'fase1':
-            file_name = '/Data/highscore1.txt'
-            flag = 1
-        elif result[0] == 'fase2':
-            file_name = '/Data/highscore2.txt'
-            flag = 1
-        elif result[0] == 'fase3':
-            file_name = '/Data/highscore3.txt'
-            flag = 1
-        elif result[0] == 'voltar':
-            return
+    ItemsJogar = [
+        ('Nível 1', 'fase1', 'button'),
+        ('Nível 2', 'fase2', 'button'),
+        ('Nível 3', 'fase3', 'button')
+    ]
 
-        # Se um botão foi selecionado
-        if flag:
-            show_top10(screen, file_name)
+    result = menu(screen, ItemsJogar, 30, 200, 30, 30, BUTTONHEIGHT, BUTTONWIDTH, Font)
 
-        pygame.display.update()  # update na tela
-        clock.tick(20)  # Frames para o Loop
+    if result[0] == 'fase1':
+        file_name = '/Data/highscore1.txt'
+    elif result[0] == 'fase2':
+        file_name = '/Data/highscore2.txt'
+    elif result[0] == 'fase3':
+        file_name = '/Data/highscore3.txt'
+
+    show_top10(screen, file_name)
+
+    pygame.display.update()
+    clock.tick(20)
 
 #Função que promove o menu de escolha de Fases
 def nivel():
+    Font = pygame.font.SysFont("calibri", 14)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -112,7 +117,7 @@ def nivel():
             ('Nível 3', 'fase3', 'button')
         ]
 
-        result = menu(screen, ItemsJogar, 30, 200, 30, 30, BUTTONHEIGHT, BUTTONWIDTH, letra)
+        result = menu(screen, ItemsJogar, 30, 200, 30, 30, BUTTONHEIGHT, BUTTONWIDTH, Font)
 
         if result[0] == 'fase1':
             fase = fase1()
@@ -124,7 +129,10 @@ def nivel():
         pygame.display.update()
         clock.tick(20)
 
+        game(fase)
+
 def main(): #Função que promove o menu de início de Jogo
+
     #Definição de Legenda da Tela
     pygame.display.set_caption("Game - Fuja da PA!")
     #Preenchimento da Tela em branco
@@ -141,7 +149,7 @@ def main(): #Função que promove o menu de início de Jogo
                  ('Quit', 'exit', 'button'),
                  ]
 
-        result = menu(screen, Items, 30, 200, 30, 30, BUTTONHEIGHT, BUTTONWIDTH, letra)
+        result = menu(screen, Items, 30, 200, 30, 30, BUTTONHEIGHT, BUTTONWIDTH, Font)
 
         if result[0] == 'exit':
             quitgame()
@@ -153,5 +161,4 @@ def main(): #Função que promove o menu de início de Jogo
         pygame.display.update()
         clock.tick(20)
 
-if __name__ == '__main__':
-    main()
+if __name__ == '__main__': main()
