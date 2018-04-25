@@ -1,8 +1,3 @@
-from pygame.locals import *
-import pygame
-from Main import *
-from Functions import *
-
 class fase1:
 
     #Flags relacionadas às missões

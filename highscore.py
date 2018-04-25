@@ -1,9 +1,6 @@
 # Modulo relacionado às funções de implementação de HighScore
 # São cinco funções descritas ao longo do código
 
-# Bibliotecas
-import pygame, sys
-
 # Cores RGB
 WHITE = (255, 255, 255)
 BLACK = (0,   0,   0)
