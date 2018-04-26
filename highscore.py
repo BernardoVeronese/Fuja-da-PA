@@ -106,7 +106,7 @@ def enterbox(screen, txt):
             pygame.time.wait(300)
 
     def show_name(screen, name):
-        # Definiçãoda Fonte
+        # Definição da Fonte
         Font = pygame.font.SysFont("arial", 20, True)
         pygame.draw.rect(box, WHITE, (50, 60, bx - 100, 20), 0)
         txt_surf = Font.render(name, True, BLACK)
