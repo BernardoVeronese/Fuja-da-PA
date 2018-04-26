@@ -53,9 +53,9 @@ def game(level, screen):
     object_group = pygame.sprite.Group()
     player = Player(player_x0, player_y0, player_angle)
     heli = Heli(heli_x0, heli_y0, heli_angle)
-    #capivara = Capivara()
+    capivara = Capivara()
     object_group.add(heli)
-    #object_group.add(capivara)
+    object_group.add(capivara)
     object_group.draw(screen)
     screen.blit(player.image, player.rect)
 
@@ -79,7 +79,7 @@ def game(level, screen):
         #Bot reaction
         '''bot_1.follow(player.x, player.y)
         bot_2.follow(player.x, player.y)'''
-        #capivara.state_change()
+        capivara.time_counter(level, screen, SCREENHEIGHT)
         player.update_pos(angle_step)
         heli.follow(player.x, player.y)
         heli.update_pos(player.x)
