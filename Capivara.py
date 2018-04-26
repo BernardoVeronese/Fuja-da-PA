@@ -11,7 +11,7 @@ class Capivara(pygame.sprite.Sprite):
         self.x = 0
         self.y = 0
         self.state = False
-        self.original_image = pygame.image.load(os.path.join('assets\car.png'))#change path directory
+        self.original_image = pygame.image.load('./assets/car.png')#change path directory
         self.image = self.original_image
 
         # Capivara position

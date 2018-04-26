@@ -22,6 +22,7 @@ def read_from_file_and_find_highscore(file_name):
     lines = file.readlines()  # Ler linhas do código...
     file.close  # fechar arquivo
 
+    # Inicialmente, o Score é zero
     high_score = 0
 
     # Para cada linha, há a comparação
@@ -43,10 +44,10 @@ def write_to_file(file_name, your_name, points):
 
 # Mostrar Top 10 de Scores feitos
 def show_top10(screen, file_name):
-    # Definiçãoda Fonte
+    # Definição da Fonte
     Font = pygame.font.SysFont("arial", 20, True)
 
-    bx = 420  # x-size of box
+    bx = 480  # x-size of box
     by = 400  # y-size of box
 
     file = open(file_name, 'r')  # abrindo o arquivo

@@ -5,6 +5,18 @@ from pygame.locals import *
 
 # Método responsável por criar um Menu, dada a entrada dos botões e as configurações espaciais
 def menu(Surface, Items, Xoffset, Yoffset, itemheight, totalheight, boxwidth, Font, Image, focus=0):
+    # Cores RGB
+    WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
+    RED = (155, 0, 0)
+    GREEN = (0, 155, 0)
+    BRIGHT_RED = (255, 0, 0)
+    BRIGHT_GREEN = (0, 255, 0)
+    GREY = (150, 150, 150)
+
+    # Parâmetros de dimensão do Botão
+    BUTTONWIDTH = 180  # largura
+    BUTTONHEIGHT = 30  # altura
 
     # Inicialização de relógio
     relogio = pygame.time.Clock()

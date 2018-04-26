@@ -6,5 +6,5 @@ class GameOver(object):
         self.state = False
 
     def measure_state(self, player, group):
-        if not player.spritecollideany(player, group) == "None":
+        if not pygame.sprite.spritecollideany(player, group) == "None":
             self.state = True
