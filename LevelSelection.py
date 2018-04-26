@@ -122,7 +122,7 @@ def nivel(screen):  # Função que promove o menu de escolha de Fases
 
     while True:
         for event in pygame.event.get():
-            # 1ro evento - Finalização do Jogo
+            # 1ro evento - Finalização do Jogo4
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
