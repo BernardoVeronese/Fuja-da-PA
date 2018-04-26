@@ -40,9 +40,9 @@ def game(level, screen):
     object_group = pygame.sprite.Group()
     player = Player(player_x0, player_y0, player_angle)
     heli = Heli(heli_x0, heli_y0, heli_angle)
-    capivara = Capivara()
+    #capivara = Capivara()
     object_group.add(heli)
-    object_group.add(capivara)
+    #object_group.add(capivara)
     object_group.draw(screen)
     screen.blit(player.image, player.rect)
 
@@ -51,30 +51,30 @@ def game(level, screen):
 
     while not game_over.state:
         # GET EVENT
-        event = pygame.event.get()
-        player.handle_event(event)
-        player.move(terrain_factor, angle_step)
-        #Bot reaction
-        '''bot_1.follow(player.x, player.y)
-        bot_2.follow(player.x, player.y)'''
-        heli.follow(player.x, player.y)
-        capivara.state_change()
-        player.update_pos(angle_step)
-        heli.update_pos()
+        for event in pygame.event.get():
+            player.handle_event(event)
+            player.move(terrain_factor, angle_step)
+            #Bot reaction
+            '''bot_1.follow(player.x, player.y)
+            bot_2.follow(player.x, player.y)'''
+            heli.follow(player.x, player.y)
+            #capivara.state_change()
+            player.update_pos(angle_step)
+            heli.update_pos()
 
-        #Game over verification
-        game_over.measure_state(player, object_group)
+            #Game over verification
+            game_over.measure_state(player, object_group)
 
-        # Atualização de Score e Verificação de Flags das etapas dos Jogos
-        if level.verificamissao(player.x, player.y):
-            score += 1000-5*(level.time_flag/1000-time_initial/1000) #modelo de Score
+            # Atualização de Score e Verificação de Flags das etapas dos Jogos
+            if level.verificamissao(player.x, player.y):
+                score += 1000-5*(level.time_flag/1000-time_initial/1000) #modelo de Score
 
-        if level.vencedor(level):
-            # Mensagem de parabéns
-            get_score(screen, level.file, score)
-            game_over.state = True
+            if level.vencedor(level):
+                # Mensagem de parabéns
+                get_score(screen, level.file, score)
+                game_over.state = True
 
-        #Screen update
-        pygame.display.update()
-        clock.tick(20)  # Time do relógio
+            #Screen update
+            pygame.display.update()
+            clock.tick(20)  # Time do relógio
 
