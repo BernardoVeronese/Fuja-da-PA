@@ -151,9 +151,9 @@ def game(level, screen):
         #Bot reaction
         '''bot_1.follow(player.x, player.y)
         bot_2.follow(player.x, player.y)'''
-        heli.follow(player.x, player.y)
         #capivara.state_change()
         player.update_pos(angle_step)
+        heli.follow(player.x, player.y)
         heli.update_pos()
         screen.blit(image.image, image.rect)
         screen.blit(player.image, player.rect)
