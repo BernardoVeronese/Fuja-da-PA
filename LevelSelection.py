@@ -4,7 +4,7 @@ from Menu import *
 def nivel():  # Função que promove o menu de escolha de Fases
     while True:
         for event in pygame.event.get():
-            # 1ro evento - Finalização do Jogo
+            # 1ro evento - Finalização do Jogo4
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
@@ -20,9 +20,9 @@ def nivel():  # Função que promove o menu de escolha de Fases
         result = menu(screen, itemsnivel, MARGEMD, MARGEMC, BUTTONHEIGHT, ESPAÇAMENTO, BUTTONWIDTH, Font, Capa)
 
         # Conferindo resultado dos botões
-        if result[0] == 'fase1':
+        if result == 'fase1':
             phase = fase1()
-        elif result[0] == 'fase2':
+        elif result == 'fase2':
             phase = fase2()
         else:
             phase = fase3()
