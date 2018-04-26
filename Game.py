@@ -66,7 +66,7 @@ def game(level, screen):
             game_over.measure_state(player, object_group)
 
             # Atualização de Score e Verificação de Flags das etapas dos Jogos
-            if level.verificamissao(player.x, player.y):
+            if level.verificarmissao(player.x, player.y, screen):
                 score += 1000-5*(level.time_flag/1000-time_initial/1000) #modelo de Score
 
             if level.vencedor(level):
