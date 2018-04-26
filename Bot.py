@@ -33,5 +33,8 @@ class Bot(pygame.sprite.Sprite):
         #Updating course
         self.x += self.speed*self.directionx/(self.directionx**2+self.directiony**2)**0.5
         self.y += self.speed*self.directiony/(self.directionx**2+self.directiony**2)**0.5
+
+    def collided(self,sprite):
+        return self.rect.colliderect(sprite.rect)
         
 
