@@ -27,7 +27,7 @@ class fase1:
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
 
-    def __init__(self, screen, BackGround):
+    def __init__(self, screen):
         self.id = '1'
 
     def mapa(self, screen, background):
@@ -104,7 +104,7 @@ class fase2:
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
 
-    def __init__(self, screen, background):
+    def __init__(self, screen):
         self.id = '2'
 
     def mapa(self, screen, background):
@@ -180,7 +180,7 @@ class fase3:
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
 
-    def __init__(self, screen, background):
+    def __init__(self, screen):
         self.id = '3'
 
     def mapa(self, screen, background):
