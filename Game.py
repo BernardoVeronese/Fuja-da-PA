@@ -6,6 +6,7 @@ from Heli import *
 from Capivara import *
 from highscore import *
 from Functions import *
+from Soldier import *
 
 # Parâmetros da Tela
 SCREENWIDTH = 945 #largura
@@ -53,11 +54,16 @@ def game(level, screen):
     object_group = pygame.sprite.Group()
     player = Player(player_x0, player_y0, player_angle)
     heli = Heli(heli_x0, heli_y0, heli_angle)
+    second_heli = Heli(heli_x0-50, heli_y0-50, heli_angle)
     capivara = Capivara()
+    soldier = Soldier()
     object_group.add(heli)
+    object_group.add(second_heli)
     object_group.add(capivara)
     object_group.draw(screen)
     screen.blit(player.image, player.rect)
+    if soldier.state:
+        screen.blit(soldier.image, soldier.rect)
 
     #Game Over criteria
     game_over = GameOver()
@@ -80,12 +86,17 @@ def game(level, screen):
         '''bot_1.follow(player.x, player.y)
         bot_2.follow(player.x, player.y)'''
         capivara.time_counter(level, screen, SCREENHEIGHT)
+        soldier.time_counter(level, screen, SCREENHEIGHT)
         player.update_pos(angle_step)
         heli.follow(player.x, player.y)
+        second_heli.follow(player.x, player.y)
         heli.update_pos(player.x)
+        second_heli.update_pos(player.x)
         screen.blit(image.image, image.rect)
         screen.blit(player.image, player.rect)
         object_group.draw(screen)
+        if soldier.state:
+            screen.blit(soldier.image, soldier.rect)
 
         #Game over verification
         #game_over.measure_state(player, object_group)

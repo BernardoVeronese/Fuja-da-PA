@@ -2,6 +2,9 @@ import pygame
 import math
 from random import *
 
+#Constants
+COUNTER_THRESHOLD = 200
+
 #Simple player object
 class Capivara(pygame.sprite.Sprite):
 
@@ -34,9 +37,10 @@ class Capivara(pygame.sprite.Sprite):
 
     def time_counter(self, level, screen, screen_size):
         self.counter += 1
-        if self.counter >= 300:
+        if self.counter >= COUNTER_THRESHOLD:
             self.state_change(level, screen, screen_size)
             self.counter = 0
+        #ADD IF(COLLIDED) > SELF.KILLER()
 
 
     def update_pos(self):
@@ -59,7 +63,7 @@ class Capivara(pygame.sprite.Sprite):
     def killer(self, level, screen, screen_size):#screen_size addition later
         x_pos = randint(0, screen_size) #Change
         y_pos = randint(0, screen_size)
-        while not level.Street(x_pos, y_pos, screen):
+        while level.Street(x_pos, y_pos, screen):
             x_pos = randint(0, screen_size)
             y_pos = randint(0, screen_size)
         self.x = x_pos
