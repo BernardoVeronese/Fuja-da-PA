@@ -14,7 +14,7 @@ class Heli(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = x0
         self.y = y0
-        self.original_image = pygame.image.load('assets\car.png')#change path directory
+        self.original_image = pygame.image.load('./assets/car.png')#change path directory
         self.image = self.original_image
 
         # Helicopter position

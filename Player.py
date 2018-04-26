@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 import math
 
 #Simple player object
@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = x0
         self.y = y0
-        self.original_image = pygame.image.load(os.path.join('assets\car.png'))
+        self.original_image = pygame.image.load('./assets/car.png')
         self.image = self.original_image
 
         #Player position
