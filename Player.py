@@ -82,9 +82,12 @@ class Player(pygame.sprite.Sprite):
         self.x += math.cos(self.angle) * self.speed*terrain_factor*self.dir
         self.y += math.sin(self.angle) * self.speed*terrain_factor*self.dir
 
-    def update_pos(self,angle_step):
+    def update_pos(self, angle_step):
         # Update image rotation. Source: https://gamedev.stackexchange.com/questions/126353/how-to-rotate-an-image-in-pygame-without-losing-quality-or-increasing-size-or-mo
         self.image = pygame.transform.rotate(self.original_image, self.pitch * angle_step)
         #x, y = self.rect.center  # Save its current center.
         self.rect = self.image.get_rect()  # Replace old rect with new rect.
         self.rect.center = (self.x, self.y)  # Put the new rect's center at old center.
+
+    def collided(self, sprite):
+        return self.rect.colliderect(sprite.rect)
