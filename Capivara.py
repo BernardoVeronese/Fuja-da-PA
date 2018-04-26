@@ -16,7 +16,7 @@ class Capivara(pygame.sprite.Sprite):
 
         # Capivara position
         self.rect = self.image.get_rect()
-        self.rect.center = (x0, y0)
+        self.rect.center = (self.x, self.y)
 
 
     #Method to draw object
@@ -29,15 +29,23 @@ class Capivara(pygame.sprite.Sprite):
             self.killer(screen_size)
         else:
             self.spawner(screen_size)
-        time_delay(self)
+
+
+    def collided(self,sprite):
+        return self.rect.colliderect(sprite.rect)
 
 
     def time_delay(self):
         clock = pygame.time.Clock()
         counter = 0
-        while not collided(self, sprite) and counter < 30:
+        while not self.collided(self, sprite) and counter < 30:
             clock.tick(20)
             counter = counter + 1
+
+
+    def update_pos(self):
+        self.rect = self.image.get_rect()  # Replace old rect with new rect.
+        self.rect.center = (self.x, self.y)  # Put the new rect's center at old center.
 
 
     def spawner(self, screen_size):#screen_size addition later
@@ -48,7 +56,7 @@ class Capivara(pygame.sprite.Sprite):
             y_pos = randint(0, screen_size)
         self.x = x_pos
         self.y = y_pos
-        update_pos(self)
+        self.update_pos()
         self.state = True
 
 
@@ -60,7 +68,7 @@ class Capivara(pygame.sprite.Sprite):
             y_pos = randint(0, screen_size)
         self.x = x_pos
         self.y = y_pos
-        update_pos(self)
+        self.update_pos(self)
         self.state = False
 
 

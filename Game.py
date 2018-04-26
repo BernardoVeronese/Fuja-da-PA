@@ -1,8 +1,12 @@
 import pygame
+import math
 from GameOver import *
-from LevelSelection import *
+from Player import *
+from Heli import *
+from Capivara import *
+from highscore import *
 
-def game(level):
+def game(level, screen):
 
     score = 0
     time_initial = pygame.time.get_ticks()
@@ -16,22 +20,19 @@ def game(level):
     heli_y0 = 0
     heli_angle = 0
 
-
+    #Terrain parameters
+    angle_step = 5*math.pi/180
+    terrain_factor = 0.01
 
     #Class initialization
+    object_group = pygame.sprite.Group()
     player = Player(player_x0, player_y0, player_angle)
+    heli = Heli(heli_x0, heli_y0, heli_angle)
+    capivara = Capivara()
+    object_group.add(heli)
+    object_group.add(capivara)
+    object_group.draw(screen)
     screen.blit(player.image, player.rect)
-    '''if level.id == '1':
-        bot_1 = Bot(x,y,image,speed)
-        bot_2 = Bot(x, y, image, speed)
-
-    if level.id == '2':
-        bot_1 = Bot(x,y,image,speed)
-        bot_2 = Heli(x,y,angle)
-
-    if level.id == '3':
-        bot_1 = Heli(x,y,angle)
-        bot_2 = Heli(x,y,angle)'''
 
     #Game Over criteria
     game_over = GameOver()
@@ -44,14 +45,16 @@ def game(level):
         #Bot reaction
         '''bot_1.follow(player.x, player.y)
         bot_2.follow(player.x, player.y)'''
+        heli.follow(player.x, player.y)
+        capivara.state_change()
         player.update_pos(angle_step)
+        heli.update_pos(angle_step)
 
-        if game_over.measure_state(PLAYER, ENEMIES):
-            #Mensagem de Game Over
-            game_over.state = True
+        #Game over verification
+        game_over.measure_state(player, object_group)
 
         # Atualização de Score e Verificação de Flags das etapas dos Jogos
-        if level.verificamissao(Player.x, Player.y):
+        if level.verificamissao(player.x, player.y):
             score += 1000-5*(level.time_flag/1000-time_initial/1000) #modelo de Score
 
         if level.vencedor(level):
@@ -61,5 +64,3 @@ def game(level):
 
         #Screen update
         pygame.display.update()  # update na tela
-
-    nivel()

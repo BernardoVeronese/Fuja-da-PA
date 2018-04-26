@@ -7,7 +7,7 @@ class Heli(pygame.sprite.Sprite):
         heli = Heli(parameters)
         heli.follow()
         heli.update()
-        screen.blit(player.image,player.rect)'''
+        screen.blit(heli.image,heli.rect)'''
 
     # Initialization
     def __init__(self,x0,y0,angle0):
@@ -39,7 +39,7 @@ class Heli(pygame.sprite.Sprite):
         #Calculating new direction
         self.directionx = playerx-self.x
         self.directiony = playery-self.y
-        self.new_angle = atan2(self.directionx, self.directiony)
+        self.new_angle = math.atan2(self.directionx, self.directiony)
 
         #Updating course
         self.x += self.speed*math.cos(self.new_angle)

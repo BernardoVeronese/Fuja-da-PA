@@ -5,6 +5,6 @@ class GameOver(object):
     def __init__(self):
         self.state = False
 
-    def measure_state(self, player, enemies):
-        if player.collided(bot1) or player.collided(bot2):
+    def measure_state(self, player, group):
+        if not player.spritecollideany(player, group) == "None":
             self.state = True
