@@ -70,6 +70,6 @@ def menu(Surface, Items, Xoffset, Yoffset, itemheight, totalheight, boxwidth, Fo
                                                                 boxwidth, itemheight), 1)
                     drawcolor = (200, 200, 200)
             # Desenho da configuração do Botão
-            Surface.blit(Font.render(draw_item, True, drawcolor), (Xoffset + BUTTONWIDTH/2,
+            Surface.blit(Font.render(draw_item, True, drawcolor), (Xoffset + BUTTONWIDTH/5,
                                                                    Yoffset + 3 + n*totalheight - Ymod))
         pygame.display.update()

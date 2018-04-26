@@ -8,6 +8,8 @@ from Functions import *
 from Levels import *
 from highscore import *
 from Menu import *
+from Heli import *
+from Bot import *
 
 # Este arquivo .py contém:
 # def main: função que promove o Menu inicial do Jogo
@@ -23,6 +25,8 @@ ESPAÇAMENTO = 50
 
 # Definição de fonte inicial
 Font = pygame.font.SysFont("arial", 20, True)
+
+# Definição de capa inicial
 Capa = Background('./assets/capa.png', [0, 0])
 
 #Parâmetros de dimensão do Botão
@@ -81,7 +85,7 @@ def game(level):
         if level.vencedor(level):
             # Mensagem de parabéns
             get_score(screen, level.file, score)
-            nivel()
+            return
 
         pygame.display.update()  # update na tela
 
@@ -94,29 +98,32 @@ def highscore():  # Função que promove o menu para visualização de HighScore
                 pygame.quit()
                 sys.exit()
 
-        # Criação dos botões relacionado ao Menu
-        itemsnivel = [
-            ('Nível 1', 'fase1', 'button'),
-            ('Nível 2', 'fase2', 'button'),
-            ('Nível 3', 'fase3', 'button')
-        ]
+            # Criação dos botões relacionado ao Menu
+            itemsnivel = [
+                ('Nível 1', 'fase1', 'button'),
+                ('Nível 2', 'fase2', 'button'),
+                ('Nível 3', 'fase3', 'button'),
+                ('Voltar', 'voltar', 'button')
+            ]
 
-        # Chamada do Menu
-        result = menu(screen, itemsnivel, MARGEMD, MARGEMC, BUTTONHEIGHT, ESPAÇAMENTO, BUTTONWIDTH, Font, Capa)
+            # Chamada do Menu
+            result = menu(screen, itemsnivel, MARGEMD, MARGEMC-50, BUTTONHEIGHT, ESPAÇAMENTO, BUTTONWIDTH, Font, Capa)
 
-        # Conferindo o resultado do clique de botões, selecionando arquivo da Fase
-        if result[0] == 'fase1':
-            filename = '/Data/highscore1.txt'
-        elif result[0] == 'fase2':
-            filename = '/Data/highscore2.txt'
-        else:
-            filename = '/Data/highscore3.txt'
+            # Conferindo o resultado do clique de botões, selecionando arquivo da Fase
+            if result == 'fase1':
+                filename = './data_highscore/highscore1.txt'
+            elif result == 'fase2':
+                filename = './data_highscore/highscore2.txt'
+            elif result == 'voltar':
+                return
+            else:
+                filename = './data_highscore/highscore3.txt'
 
-        # Mostrar Top10 Scores relacionados àquela fase
-        show_top10(screen, filename)
+            # Mostrar Top10 Scores relacionados àquela fase
+            show_top10(screen, filename)
 
-        pygame.display.update()  # Atualização do Display
-        clock.tick(20)  # Time do relógio
+            pygame.display.update()  # Atualização do Display
+            clock.tick(20)  # Time do relógio
 
 
 def nivel():  # Função que promove o menu de escolha de Fases
@@ -127,29 +134,29 @@ def nivel():  # Função que promove o menu de escolha de Fases
                 pygame.quit()
                 sys.exit()
 
-        # Criação dos botões relacionados aos níveis do jogo
-        itemsnivel = [
-            ('Nível 1', 'fase1', 'button'),
-            ('Nível 2', 'fase2', 'button'),
-            ('Nível 3', 'fase3', 'button')
-        ]
+            # Criação dos botões relacionados aos níveis do jogo
+            itemsnivel = [
+                ('Nível 1', 'fase1', 'button'),
+                ('Nível 2', 'fase2', 'button'),
+                ('Nível 3', 'fase3', 'button')
+            ]
 
-        # Chamada do menu de níveis do jogo
-        result = menu(screen, itemsnivel, MARGEMD, MARGEMC, BUTTONHEIGHT, ESPAÇAMENTO, BUTTONWIDTH, Font, Capa)
+            # Chamada do menu de níveis do jogo
+            result = menu(screen, itemsnivel, MARGEMD, MARGEMC, BUTTONHEIGHT, ESPAÇAMENTO, BUTTONWIDTH, Font, Capa)
 
-        # Conferindo resultado dos botões
-        if result[0] == 'fase1':
-            phase = fase1()
-        elif result[0] == 'fase2':
-            phase = fase2()
-        else:
-            phase = fase3()
+            # Conferindo resultado dos botões
+            if result[0] == 'fase1':
+                phase = fase1()
+            elif result[0] == 'fase2':
+                phase = fase2()
+            else:
+                phase = fase3()
 
-        # Inicialização da Fase pressionada
-        game(phase)
+            # Inicialização da Fase pressionada
+            game(phase)
 
-        pygame.display.update()  # Atualização de tela
-        clock.tick(20)  # Time do relógio
+            pygame.display.update()  # Atualização de tela
+            clock.tick(20)  # Time do relógio
 
 
 def main():  # Função que promove o menu de início de Jogo

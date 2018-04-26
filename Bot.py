@@ -1,7 +1,7 @@
 import pygame
 
 #Simple player object
-'''class Bot(pygame.sprite.Sprite):
+class Bot(pygame.sprite.Sprite):
 
     # Initialization
     def __init__(self,x,y,image,speed):
@@ -32,6 +32,6 @@ import pygame
 
         #Updating course
         self.x += self.speed*self.directionx/(self.directionx**2+self.directiony**2)**0.5
-        self.y += self.speed*self.directiony/(self.directionx**2+self.directiony**2)**0.5'''
+        self.y += self.speed*self.directiony/(self.directionx**2+self.directiony**2)**0.5
         
 
