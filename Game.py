@@ -38,10 +38,10 @@ def game(level, screen):
 
     #Initialization variables
     player_x0 = 0.1*SCREENWIDTH
-    player_y0 = 0.28*SCREENHEIGHT
+    player_y0 = 0.27*SCREENHEIGHT
     player_angle = 0
 
-    heli_x0 = 0
+    heli_x0 = 0.4*SCREENWIDTH
     heli_y0 = 0
     heli_angle = 0
 
@@ -82,7 +82,7 @@ def game(level, screen):
         #capivara.state_change()
         player.update_pos(angle_step)
         heli.follow(player.x, player.y)
-        heli.update_pos()
+        heli.update_pos(player.x)
         screen.blit(image.image, image.rect)
         screen.blit(player.image, player.rect)
         object_group.draw(screen)
