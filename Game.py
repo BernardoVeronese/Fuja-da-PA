@@ -82,6 +82,12 @@ def tutorial(phase, screen):
                 return
         pygame.time.wait(20)
 
+def measure_terrain(player, level, screen):
+    aux_terrain = 1
+    upper_front_x, upper_front_y = player.x, player.y
+    if not level.Street(upper_front_x, upper_front_y, screen):
+        aux_terrain = 0.4
+    return aux_terrain
 
 def game(level, screen):
 
@@ -104,7 +110,7 @@ def game(level, screen):
 
     #Initialization variables
     player_x0 = 0.1*SCREENWIDTH
-    player_y0 = 0.3*SCREENHEIGHT
+    player_y0 = 0.28*SCREENHEIGHT
     player_angle = 0
 
     heli_x0 = 0
@@ -118,11 +124,11 @@ def game(level, screen):
     #Class initialization
     object_group = pygame.sprite.Group()
     player = Player(player_x0, player_y0, player_angle)
-    #heli = Heli(heli_x0, heli_y0, heli_angle)
+    heli = Heli(heli_x0, heli_y0, heli_angle)
     #capivara = Capivara()
-    #object_group.add(heli)
+    object_group.add(heli)
     #object_group.add(capivara)
-    #object_group.draw(screen)
+    object_group.draw(screen)
     screen.blit(player.image, player.rect)
 
     #Game Over criteria
@@ -135,17 +141,23 @@ def game(level, screen):
                 pygame.quit()
                 sys.exit()
             player.handle_event(event)
+        #Handle terrain
+        screen.blit(image.image, image.rect)
+        terrain_factor = measure_terrain(player, level, screen)
+
+        #Player movement
         player.move(terrain_factor, angle_step)
-        terrain_factor = 1
+
         #Bot reaction
         '''bot_1.follow(player.x, player.y)
         bot_2.follow(player.x, player.y)'''
-        #heli.follow(player.x, player.y)
+        heli.follow(player.x, player.y)
         #capivara.state_change()
         player.update_pos(angle_step)
+        heli.update_pos()
         screen.blit(image.image, image.rect)
         screen.blit(player.image, player.rect)
-        #heli.update_pos()
+        object_group.draw(screen)
 
         #Game over verification
         #game_over.measure_state(player, object_group)
