@@ -32,6 +32,9 @@ def write_to_file(file_name, your_name, points):
 
 # Mostrar Top 10 de Scores feitos
 def show_top10(screen, file_name):
+    # Definição da Fonte
+    Font = pygame.font.SysFont("arial", 20, True)
+
     bx = 480  # x-size of box
     by = 400  # y-size of box
 
