@@ -63,6 +63,7 @@ def game(level, screen):
                 sys.exit()
             player.handle_event(event)
         player.move(terrain_factor, angle_step)
+        terrain_factor = 1
         #Bot reaction
         '''bot_1.follow(player.x, player.y)
         bot_2.follow(player.x, player.y)'''
