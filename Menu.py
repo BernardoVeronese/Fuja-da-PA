@@ -1,15 +1,17 @@
 # Libraries
 from Main import *
+from pygame.locals import *
+
 
 # Método responsável por criar um Menu, dada a entrada dos botões e as configurações espaciais
 def menu(Surface, Items, Xoffset, Yoffset, itemheight, totalheight, boxwidth, Font, Image, focus=0):
 
     # Inicialização de relógio
-    Clock = pygame.time.Clock()
+    relogio = pygame.time.Clock()
 
     while True:
         Surface.blit(Image.image, Image.rect)  # Blit novamente da imagem de fundo
-        Clock.tick(10)  # Pequeno intervalo de tempo antes do início do Loop
+        relogio.tick(10)  # Pequeno intervalo de tempo antes do início do Loop
         for event in pygame.event.get():  # Lidando com os eventos do Usuário
             # 1ro evento - Sair do jogo
             if event.type == QUIT:  # se evento for terminar
@@ -46,30 +48,30 @@ def menu(Surface, Items, Xoffset, Yoffset, itemheight, totalheight, boxwidth, Fo
 
         # Ressalva caso o número de itens (botões) supere a altura da tela
         if Yoffset + focus*totalheight + itemheight > Surface.get_height():
-            Ymod = Yoffset + (focus+1)*totalheight + itemheight - Surface.get_height()
+            ymod = Yoffset + (focus+1)*totalheight + itemheight - Surface.get_height()
         else:
-            Ymod = 0
+            ymod = 0
 
         for n in range(len(Items)):  # para cada um dos itens
             draw_item = Items[n][0]
             draw_type = Items[n][2]
             if n == focus:  # desenho caso haja foco no respectivo item
                 if draw_type == 'button':
-                    pygame.draw.rect(Surface, WHITE, (Xoffset, Yoffset + n*totalheight - Ymod, boxwidth, itemheight))
+                    pygame.draw.rect(Surface, WHITE, (Xoffset, Yoffset + n*totalheight - ymod, boxwidth, itemheight))
                     drawcolor = BLACK
                 elif draw_type == 'cancelbutton':
-                    pygame.draw.rect(Surface, (200, 200, 200), (Xoffset, Yoffset + n*totalheight - Ymod, boxwidth,
+                    pygame.draw.rect(Surface, (200, 200, 200), (Xoffset, Yoffset + n*totalheight - ymod, boxwidth,
                                                                 itemheight))
                     drawcolor = (0, 0, 0)
             else:  # desenho caso não haja foco no respectivo item
                 if draw_type == 'button':
-                    pygame.draw.rect(Surface, BLACK, (Xoffset, Yoffset + n*totalheight - Ymod, boxwidth, itemheight), 1)
+                    pygame.draw.rect(Surface, BLACK, (Xoffset, Yoffset + n*totalheight - ymod, boxwidth, itemheight), 1)
                     drawcolor = WHITE
                 elif draw_type == 'cancelbutton':
-                    pygame.draw.rect(Surface, (200, 200, 200), (Xoffset, Yoffset + n*totalheight - Ymod,
+                    pygame.draw.rect(Surface, (200, 200, 200), (Xoffset, Yoffset + n*totalheight - ymod,
                                                                 boxwidth, itemheight), 1)
                     drawcolor = (200, 200, 200)
             # Desenho da configuração do Botão
-            Surface.blit(Font.render(draw_item, True, drawcolor), (Xoffset + BUTTONWIDTH/2,
-                                                                   Yoffset + 3 + n*totalheight - Ymod))
+            Surface.blit(Font.render(draw_item, True, drawcolor), (Xoffset + BUTTONWIDTH/5,
+                                                                   Yoffset + 3 + n*totalheight - ymod))
         pygame.display.update()
