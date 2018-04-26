@@ -1,6 +1,20 @@
 # Libraries
-from Main import *
+import pygame
+import sys
 
+# Parâmetros da Tela
+SCREENWIDTH = 945 #largura
+SCREENHEIGHT = 565 #altura
+
+# Cores RGB
+WHITE = (255, 255, 255)
+BLACK = (0,   0,   0)
+RED = (155,   0,   0)
+GREEN = (0, 155,   0)
+BRIGHT_RED = (255,   0,   0)
+BRIGHT_GREEN = (0, 255,   0)
+GREY = (150, 150, 150)
+SKYBLUE = (135, 206, 235)
 
 # Retorno de nome e Score do HighScore a partir do histórico dos dados de Score
 def read_from_file_and_find_highscore(file_name):
@@ -22,13 +36,11 @@ def read_from_file_and_find_highscore(file_name):
 
     return high_name, high_score
 
-
 # Escrita de Score de um Jogo no arquivo de Texto
 def write_to_file(file_name, your_name, points):
     score_file = open(file_name, 'a')
     print(your_name + ",", points, file=score_file)
     score_file.close()
-
 
 # Mostrar Top 10 de Scores feitos
 def show_top10(screen, file_name):
@@ -55,9 +67,9 @@ def show_top10(screen, file_name):
 
     # make the presentation box
     box = pygame.surface.Surface((bx, by))
-    box.fill(GREY)
-    pygame.draw.rect(box, WHITE, (50, 12, bx - 100, 35), 0)
-    pygame.draw.rect(box, WHITE, (50, by - 60, bx - 100, 42), 0)
+    box.fill(WHITE)
+    pygame.draw.rect(box, SKYBLUE, (50, 12, bx - 100, 35), 0)
+    pygame.draw.rect(box, SKYBLUE, (50, by - 60, bx - 100, 42), 0)
     pygame.draw.rect(box, BLACK, (0, 0, bx, by), 1)
     txt_surf = Font.render("HIGHSCORE", True, BLACK)  # headline
     txt_rect = txt_surf.get_rect(center=(bx // 2, 30))
@@ -72,11 +84,14 @@ def show_top10(screen, file_name):
         txt_rect = txt_surf.get_rect(center=(bx // 2, 30 * i + 60))
         box.blit(txt_surf, txt_rect)
 
-    screen.blit(box, (0, 0))
+    screen.blit(box, (SCREENWIDTH/4, SCREENHEIGHT/10))
     pygame.display.flip()
 
     while True:  # wait for user to acknowledge and return
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
             if event.type == pygame.KEYDOWN and event.key in [pygame.K_RETURN, pygame.K_KP_ENTER]:
                 return
         pygame.time.wait(20)
@@ -91,12 +106,17 @@ def enterbox(screen, txt):
             pygame.time.wait(300)
 
     def show_name(screen, name):
+        # Definiçãoda Fonte
+        Font = pygame.font.SysFont("arial", 20, True)
         pygame.draw.rect(box, WHITE, (50, 60, bx - 100, 20), 0)
         txt_surf = Font.render(name, True, BLACK)
         txt_rect = txt_surf.get_rect(center=(bx // 2, int(by * 0.7)))
         box.blit(txt_surf, txt_rect)
         screen.blit(box, (0, by // 2))
         pygame.display.flip()
+
+    # Definiçãoda Fonte
+    Font = pygame.font.SysFont("arial", 20, True)
 
     bx = 480
     by = 100
