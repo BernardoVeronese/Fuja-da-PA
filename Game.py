@@ -11,6 +11,16 @@ def game(level, screen):
     score = 0
     time_initial = pygame.time.get_ticks()
 
+    #Level selection
+    if level.id == '1':
+        image = Background('./assets/Map_1.png', [0, 0])
+
+    elif level.id == '2':
+        image = Background('./assets/Map_2.png', [0, 0])
+
+    else:
+        image = Background('./assets/Map_3.png', [0, 0])
+
     #Initialization variables
     player_x0 = 0
     player_y0 = 0
@@ -48,7 +58,7 @@ def game(level, screen):
         heli.follow(player.x, player.y)
         capivara.state_change()
         player.update_pos(angle_step)
-        heli.update_pos(angle_step)
+        heli.update_pos()
 
         #Game over verification
         game_over.measure_state(player, object_group)

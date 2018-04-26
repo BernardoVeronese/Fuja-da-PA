@@ -21,7 +21,7 @@ SCREENWIDTH = 945 #largura
 SCREENHEIGHT = 565 #altura
 MARGEMD = 120
 MARGEMC = 200
-ESPAÇAMENTO = 50
+ESPACAMENTO = 50
 
 # Definição de capa inicial
 Capa = Background('./assets/capa.png', [0, 0])
@@ -114,7 +114,7 @@ def nivel():  # Função que promove o menu de escolha de Fases
             ]
 
             # Chamada do menu de níveis do jogo
-            result = menu(screen, itemsnivel, MARGEMD, MARGEMC, BUTTONHEIGHT, ESPAÇAMENTO, BUTTONWIDTH, Font, Capa)
+            result = menu(screen, itemsnivel, MARGEMD, MARGEMC, BUTTONHEIGHT, ESPACAMENTO, BUTTONWIDTH, Font, Capa)
 
             # Conferindo resultado dos botões
             if result == 'fase1':
@@ -156,7 +156,7 @@ def highscore():  # Função que promove o menu para visualização de HighScore
             ]
 
             # Chamada do Menu
-            result = menu(screen, itemsnivel, MARGEMD, MARGEMC-50, BUTTONHEIGHT, ESPAÇAMENTO, BUTTONWIDTH, Font, Capa)
+            result = menu(screen, itemsnivel, MARGEMD, MARGEMC-50, BUTTONHEIGHT, ESPACAMENTO, BUTTONWIDTH, Font, Capa)
 
             # Conferindo o resultado do clique de botões, selecionando arquivo da Fase
             if result == 'fase1':
@@ -197,7 +197,7 @@ def main():  # Função que promove o menu de início de Jogo
                  ]
 
         # Chamada do menu de início do jogo
-        result = menu(screen, items, MARGEMD, MARGEMC, BUTTONHEIGHT, ESPAÇAMENTO, BUTTONWIDTH, Font, Capa)
+        result = menu(screen, items, MARGEMD, MARGEMC, BUTTONHEIGHT, ESPACAMENTO, BUTTONWIDTH, Font, Capa)
 
         # Conferindo resultado de botões
         if result == 'exit':  # sair
