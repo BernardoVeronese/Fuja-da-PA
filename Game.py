@@ -75,15 +75,15 @@ def game(level, screen):
             #game_over.measure_state(player, object_group)
 
             # Atualização de Score e Verificação de Flags das etapas dos Jogos
-            #if level.verificarmissao(player.x, player.y, screen):
-                #score += 1000-5*(level.time_flag/1000-time_initial/1000) #modelo de Score
+            if level.verificarmissao(player.x, player.y, screen):
+                score += 1000-5*(level.time_flag/1000-time_initial/1000) #modelo de Score
 
-            #if level.vencedor(level):
-                # Mensagem de parabéns
-               # get_score(screen, level.file, score)
-                #game_over.state = True
+            # Verificação se o jogador é vencedor
+            if level.vencedor():
+                get_score(screen, level.file, score)
+                game_over.state = True
 
-            #Screen update
+            # Screen update
             pygame.display.update()
             clock.tick(20)  # Time do relógio
 

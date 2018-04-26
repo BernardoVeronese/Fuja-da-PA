@@ -37,13 +37,17 @@ class fase1:
         return './data_highscore/highscore1.txt'
 
     def obstaculo(self, x, y, screen):
-        if screen.get_at(x, y) in (fase1.OBSTACULO, fase1.OBSTACULO2, fase1.OBSTACULO3, fase1.OBSTACULO4):
+        x = int(x)
+        y = int(y)
+        if screen.get_at((x, y)) in (fase1.OBSTACULO, fase1.OBSTACULO2, fase1.OBSTACULO3, fase1.OBSTACULO4):
             return True
         elif fase1.LAGOX < x < fase1.LAGOX + fase1.LAGOWIDTH and fase1.LAGOY < y < fase1.LAGOY + fase1.LAGOHEIGHT:
             return True
         return False
 
     def verificarmissao(self, x, y, screen):
+        x = int(x)
+        y = int(y)
         if screen.get_at((x, y)) == fase1.RED and x > 470:
             fase1.flag1 = True
             fase1.time_flag1 = pygame.time.get_ticks()
@@ -60,12 +64,14 @@ class fase1:
                 txt_rect = txt_surf.get_rect(center=(150 // 2, 30))
                 screen.blit(txt_surf, txt_rect)
 
-    def Vencedor(self):
+    def vencedor(self):
         if fase1.flag1 and fase1.flag2:
             return True
         return False
 
     def Street(self, x, y, screen):
+        x = int(x)
+        y = int(y)
         if screen.get_at((x, y)) == fase1.STREET:
             return True
         return False
@@ -108,6 +114,8 @@ class fase2:
         return './data_highscore/highscore2.txt'
 
     def obstaculo(self, x, y, screen):
+        x = int(x)
+        y = int(y)
         if screen.get_at((x, y)) in (fase2.OBSTACULO, fase2.OBSTACULO2, fase2.OBSTACULO3, fase2.OBSTACULO4):
             return True
         elif fase2.LAGOX < x < fase2.LAGOX + fase2.LAGOWIDTH and fase2.LAGOY < y < fase2.LAGOY + fase2.LAGOHEIGHT:
@@ -115,6 +123,8 @@ class fase2:
         return False
 
     def verificarmissao(self, x, y, screen):
+        x = int(x)
+        y = int(y)
         if screen.get_at((x, y)) == fase2.RED and x > 470:
             fase2.flag1 = True
             fase2.time_flag1 = pygame.time.get_ticks()
@@ -131,12 +141,14 @@ class fase2:
                 txt_rect = txt_surf.get_rect(center=(150 // 2, 30))
                 screen.blit(txt_surf, txt_rect)
 
-    def Vencedor(self):
+    def vencedor(self):
         if fase2.flag1 and fase2.flag2:
             return True
         return False
 
     def Street(self, x, y, screen):
+        x = int(x)
+        y = int(y)
         if screen.get_at((x, y)) == fase2.STREET:
             return True
         return False
@@ -178,6 +190,8 @@ class fase3:
         return './data_highscore/highscore2.txt'
 
     def obstaculo(self, x, y, screen):
+        x = int(x)
+        y = int(y)
         if screen.get_at((x, y)) in (fase3.OBSTACULO, fase3.OBSTACULO2, fase3.OBSTACULO3, fase3.OBSTACULO4):
             return True
         elif fase3.LAGOX < x < fase3.LAGOX + fase3.LAGOWIDTH and fase3.LAGOY < y < fase3.LAGOY + fase3.LAGOHEIGHT:
@@ -185,6 +199,8 @@ class fase3:
         return False
 
     def verificarmissao(self, x, y, screen):
+        x = int(x)
+        y = int(y)
         if screen.get_at((x, y)) == fase3.RED and x > 470:
             fase3.flag1 = True
             fase3.time_flag1 = pygame.time.get_ticks()
@@ -201,12 +217,14 @@ class fase3:
                 txt_rect = txt_surf.get_rect(center=(150 // 2, 30))
                 screen.blit(txt_surf, txt_rect)
 
-    def Vencedor(self):
+    def vencedor(self):
         if fase3.flag1 and fase3.flag2:
             return True
         return False
 
     def Street(self, x, y, screen):
+        x = int(x)
+        y = int(y)
         if screen.get_at((x, y)) == fase3.STREET:
             return True
         return False
