@@ -15,7 +15,7 @@ class Heli(pygame.sprite.Sprite):
         self.x = x0
         self.y = y0
         self.original_image = pygame.image.load('./assets/car.png')#change path directory
-        self.image = self.original_image
+        self.image = pygame.transform.scale(self.original_image, (30, 20))
 
         # Helicopter position
         self.rect = self.image.get_rect()
