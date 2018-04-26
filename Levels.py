@@ -1,86 +1,212 @@
+import pygame
+
 class fase1:
 
     #Flags relacionadas às missões
     flag1 = False
     flag2 = False
-    time_flag = 0
+    time_flag1 = 0
+    time_flag2 = 0
 
-    # Asset relacionada à missão 1
-    M1X = 796 # 19.9cm
-    M1Y = 140 # 3.5cm
+    # Fonte
+    Font = pygame.font.SysFont("arial", 20, True)
 
-    # Asset relacionada à missão 2
-    M2X = 148 # 3.7cm
-    M2Y = 460 # 11.5cm
-    M2WIDTH = 40 # 1.0cm
-    M2HEIGHT = 144 # 3.6cm
+    # Dimensões do Lago
+    LAGOX = 397
+    LAGOY = 414
+    LAGOWIDTH = 325
+    LAGOHEIGHT = 113
 
-    #Asset relacionada ao Rancho
-    RANCHOX = 456 #11.4cm
-    RANCHOY = 196 #4.9cm
-    RANCHOWIDTH = 136 #3.4cm
-    RANCHOHEIGHT = 132 #3.3cm
+    # Cores relacionados à dinâmica de mapa
+    OBSTACULO = (237, 237, 237)
+    OBSTACULO2 = (216, 0, 39)
+    OBSTACULO3 = (0, 0, 0)
+    OBSTACULO4 = (37, 102, 3)
+    RED = (255, 0, 0)
+    STREET = (77, 77, 77)
+    WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
 
-    #Asset relacionada ao Novo Fund
-    FUNDX = 192 # 4.8cm
-    FUNDY = 196 # 4.9cm
-    FUNDWIDTH = 176 # 4.4cm
-    FUNDHEIGHT = 148 # 3.7cm
-
-    def __init__(self):
-        BackGround = Background('.\Data\Mapa.png', [0, 0])
-        screen.blit(BackGround.image, BackGround.rect)
+    def __init__(self, screen, BackGround):
         self.id = '1'
 
-    def file(self):
-        return './Data/highscore1.txt'
+    def mapa(self, screen, background):
+        screen.blit(background.image, background.rect)
 
-    def obstaculo(self, x, y):
-        if fase1.RANCHOX < x < fase1.RANCHOX+fase1.RANCHOWIDTH and fase1.RANCHOY < y < fase1.RANCHOY+fase1.RANCHOHEIGHT:
+    def file(self):
+        return './data_highscore/highscore1.txt'
+
+    def obstaculo(self, x, y, screen):
+        if screen.get_at(x, y) in (fase1.OBSTACULO, fase1.OBSTACULO2, fase1.OBSTACULO3, fase1.OBSTACULO4):
             return True
-        elif fase1.FUNDX < x < fase1.FUNDX+fase1.FUNDWIDTH and fase1.FUNDY < y < fase1.FUNDY+fase1.FUNDHEIGHT:
+        elif fase1.LAGOX < x < fase1.LAGOX + fase1.LAGOWIDTH and fase1.LAGOY < y < fase1.LAGOY + fase1.LAGOHEIGHT:
             return True
         return False
 
-    def verificamissao(self, x, y):
-        if fase1.M1X < x and y < fase1.M1Y:
+    def Verificarmissao(self, x, y, screen):
+        if screen.get_at(x, y) == fase1.RED and x > 470:
             fase1.flag1 = True
-            fase1.time_flag = pygame.time.get_ticks()
-            #Inserir texto de primeira parte cumprida
-            return True
-        if fase1.M2X < x < fase1.M2X+fase1.M2WIDTH and fase1.M2Y < y < fase1.M2Y+fase1.M2HEIGHT:
+            fase1.time_flag1 = pygame.time.get_ticks()
+            pygame.draw.rect(screen, fase1.WHITE, (30, 30, 150, 30), 1)
+            txt_surf = fase1.Font.render("Etapa 1 concluída", True, fase1.BLACK)
+            txt_rect = txt_surf.get_rect(center=(150 // 2, 30))
+            screen.blit(txt_surf, txt_rect)
+        if screen.get_at(x, y) == fase1.RED and x < 470:
             if fase1.flag1:
                 fase1.flag2 = True
-                time_flag = pygame.time.get_ticks()
-            #Inserir texto de segunda parte cumprida
+                fase1.time_flag2 = pygame.time.get_ticks()
+                pygame.draw.rect(screen, fase1.WHITE, (30, 30, 150, 30), 1)
+                txt_surf = fase1.Font.render("Etapa 2 concluída", True, fase1.BLACK)
+                txt_rect = txt_surf.get_rect(center=(150 // 2, 30))
+                screen.blit(txt_surf, txt_rect)
 
-            return True
-        return False
-
-    def vencedor(self):
+    def Vencedor(self):
         if fase1.flag1 and fase1.flag2:
             return True
         return False
 
-    def street(self, x, y):
-        if y < 180:
-            if x < 372 or 512 < x < 592 or 692 < x < 772:
-                return False
-        elif fase1.RANCHOY < y < fase1.RANCHOY+fase1.RANCHOHEIGHT:
-            if fase1.FUNDX < x < fase1.FUNDX+fase1.FUNDWIDTH or fase1.RANCHOX < x < fase1.RANCHOX+fase1.RANCHOWIDTH:
-                return False
-        elif 440 < y and 188 < x < 632:
-            return False
-        elif 135 < y and 632 < x < 836:
-            return False
-        return True
+    def Street(self, x, y, screen):
+        if screen.get_at(x, y) == fase1.STREET:
+            return True
+        return False
+
 
 class fase2:
 
+    # Flags relacionadas às missões
+    flag1 = False
+    flag2 = False
+    time_flag1 = 0
+    time_flag2 = 0
+
+    # Fonte
+    Font = pygame.font.SysFont("arial", 20, True)
+
+    # Dimensões do Lago
+    LAGOX = 227
+    LAGOY = 320
+    LAGOWIDTH = 302
+    LAGOHEIGHT = 96
+
+    # Cores relacionados à dinâmica de mapa
+    OBSTACULO = (237, 237, 237)
+    OBSTACULO2 = (216, 0, 39)
+    OBSTACULO3 = (0, 0, 0)
+    OBSTACULO4 = (37, 102, 3)
+    RED = (255, 0, 0)
+    STREET = (77, 77, 77)
+    WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
+
+    def __init__(self, screen, background):
+        self.id = '2'
+
+    def mapa(self, screen, background):
+        screen.blit(background.image, background.rect)
+
     def file(self):
-        return './Data/highscore2.txt'
+        return './data_highscore/highscore2.txt'
+
+    def obstaculo(self, x, y, screen):
+        if screen.get_at(x, y) in (fase2.OBSTACULO, fase2.OBSTACULO2, fase2.OBSTACULO3, fase2.OBSTACULO4):
+            return True
+        elif fase2.LAGOX < x < fase2.LAGOX + fase2.LAGOWIDTH and fase2.LAGOY < y < fase2.LAGOY + fase2.LAGOHEIGHT:
+            return True
+        return False
+
+    def Verificarmissao(self, x, y, screen):
+        if screen.get_at(x, y) == fase2.RED and x > 470:
+            fase2.flag1 = True
+            fase2.time_flag1 = pygame.time.get_ticks()
+            pygame.draw.rect(screen, fase2.WHITE, (30, 30, 150, 30), 1)
+            txt_surf = fase2.Font.render("Etapa 1 concluída", True, fase2.BLACK)
+            txt_rect = txt_surf.get_rect(center=(150 // 2, 30))
+            screen.blit(txt_surf, txt_rect)
+        if screen.get_at(x, y) == fase2.RED and x < 470:
+            if fase2.flag1:
+                fase2.flag2 = True
+                fase2.time_flag2 = pygame.time.get_ticks()
+                pygame.draw.rect(screen, fase2.WHITE, (30, 30, 150, 30), 1)
+                txt_surf = fase2.Font.render("Etapa 2 concluída", True, fase2.BLACK)
+                txt_rect = txt_surf.get_rect(center=(150 // 2, 30))
+                screen.blit(txt_surf, txt_rect)
+
+    def Vencedor(self):
+        if fase2.flag1 and fase2.flag2:
+            return True
+        return False
+
+    def Street(self, x, y, screen):
+        if screen.get_at(x, y) == fase2.STREET:
+            return True
+        return False
+
 
 class fase3:
+    # Flags relacionadas às missões
+    flag1 = False
+    flag2 = False
+    time_flag1 = 0
+    time_flag2 = 0
+
+    # Fonte
+    Font = pygame.font.SysFont("arial", 20, True)
+
+    # Dimensões do Lago
+    LAGOX = 227
+    LAGOY = 320
+    LAGOWIDTH = 302
+    LAGOHEIGHT = 96
+
+    # Cores relacionados à dinâmica de mapa
+    OBSTACULO = (237, 237, 237)
+    OBSTACULO2 = (216, 0, 39)
+    OBSTACULO3 = (0, 0, 0)
+    OBSTACULO4 = (37, 102, 3)
+    RED = (255, 0, 0)
+    STREET = (77, 77, 77)
+    WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
+
+    def __init__(self, screen, background):
+        self.id = '3'
+
+    def mapa(self, screen, background):
+        screen.blit(background.image, background.rect)
 
     def file(self):
-        return './Data/highscore3.txt'
+        return './data_highscore/highscore2.txt'
+
+    def obstaculo(self, x, y, screen):
+        if screen.get_at(x, y) in (fase3.OBSTACULO, fase3.OBSTACULO2, fase3.OBSTACULO3, fase3.OBSTACULO4):
+            return True
+        elif fase3.LAGOX < x < fase3.LAGOX + fase3.LAGOWIDTH and fase3.LAGOY < y < fase3.LAGOY + fase3.LAGOHEIGHT:
+            return True
+        return False
+
+    def Verificarmissao(self, x, y, screen):
+        if screen.get_at(x, y) == fase3.RED and x > 470:
+            fase3.flag1 = True
+            fase3.time_flag1 = pygame.time.get_ticks()
+            pygame.draw.rect(screen, fase3.WHITE, (30, 30, 150, 30), 1)
+            txt_surf = fase3.Font.render("Etapa 1 concluída", True, fase3.BLACK)
+            txt_rect = txt_surf.get_rect(center=(150 // 2, 30))
+            screen.blit(txt_surf, txt_rect)
+        if screen.get_at(x, y) == fase3.RED and x < 470:
+            if fase3.flag1:
+                fase3.flag2 = True
+                fase3.time_flag2 = pygame.time.get_ticks()
+                pygame.draw.rect(screen, fase3.WHITE, (30, 30, 150, 30), 1)
+                txt_surf = fase3.Font.render("Etapa 2 concluída", True, fase3.BLACK)
+                txt_rect = txt_surf.get_rect(center=(150 // 2, 30))
+                screen.blit(txt_surf, txt_rect)
+
+    def Vencedor(self):
+        if fase3.flag1 and fase3.flag2:
+            return True
+        return False
+
+    def Street(self, x, y, screen):
+        if screen.get_at(x, y) == fase3.STREET:
+            return True
+        return False

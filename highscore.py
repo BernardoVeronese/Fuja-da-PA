@@ -22,7 +22,6 @@ def read_from_file_and_find_highscore(file_name):
     lines = file.readlines()  # Ler linhas do código...
     file.close  # fechar arquivo
 
-    # Inicialmente, o Score é zero
     high_score = 0
 
     # Para cada linha, há a comparação
@@ -36,13 +35,11 @@ def read_from_file_and_find_highscore(file_name):
 
     return high_name, high_score
 
-
 # Escrita de Score de um Jogo no arquivo de Texto
 def write_to_file(file_name, your_name, points):
     score_file = open(file_name, 'a')
     print(your_name + ",", points, file=score_file)
     score_file.close()
-
 
 # Mostrar Top 10 de Scores feitos
 def show_top10(screen, file_name):

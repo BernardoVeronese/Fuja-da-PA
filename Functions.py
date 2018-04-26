@@ -1,9 +1,13 @@
 # Libraries
-from Main import *
 from math import *
+import pygame
 
 # Este arquivo .py contém:
 # def quitgame: responsável por finalizar programa
+# class Background: responsável por implementar imagem de fundo
+
+# Inicialização do módulo Pygame
+pygame.init()
 
 class Background(pygame.sprite.Sprite):
     def __init__(self, image_file, location):
