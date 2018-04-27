@@ -161,7 +161,7 @@ def game(level, screen):
             score += int(1000 - 5 * (time_flag / 1000 - time_initial / 1000))  # modelo de Score
 
         if level.vencedor():
-            get_score(screen, './data_highscore/highscore1.txt', score)
+            get_score(screen, level.file(), score)
             break
 
         #Player movement
