@@ -9,6 +9,8 @@ from Functions import *
 from Soldier import *
 from pygame.locals import *
 from ObstaclesFase1 import *
+from Constants import *
+from SoundEffects import *
 
 # Parâmetros da Tela
 SCREENWIDTH = 945 #largura
@@ -47,6 +49,7 @@ def game(level, screen):
     boolean = False
     time_initial = pygame.time.get_ticks()
     clock = pygame.time.Clock()
+    music_selection(level)
 
     #Level selection
     if level.id == '1':
@@ -107,15 +110,11 @@ def game(level, screen):
     screen.blit(image.image, image.rect)
     screen.blit(point1.image, point1.rect)
     screen.blit(point2.image, point2.rect)
+    pygame.mixer.music.play()
 
     #Initialization variables
-    player_x0 = 0.1*SCREENWIDTH
-    player_y0 = 0.27*SCREENHEIGHT
-    player_angle = 0
-
-    heli_x0 = 0.7*SCREENWIDTH
-    heli_y0 = 0.5*SCREENHEIGHT
-    heli_angle = 0
+    player_x0, player_y0, player_angle = player_constants(level)
+    heli_x0, heli_y0, heli_angle, patrol_radius = heli_constants(level)
 
     #Terrain parameters
     angle_step = 7.5
@@ -124,8 +123,8 @@ def game(level, screen):
     #Class initialization
     object_group = pygame.sprite.Group()
     player = Player(player_x0, player_y0, player_angle)
-    heli = Heli(heli_x0, heli_y0, heli_angle)
-    second_heli = Heli(heli_x0-50, heli_y0-50, heli_angle)
+    heli = Heli(SCREENWIDTH-1,SCREENHEIGHT-1, heli_angle)
+    second_heli = Heli(heli_x0, heli_y0, heli_angle)
     capivara = Capivara()
     soldier = Soldier()
     object_group.add(heli)
@@ -175,7 +174,7 @@ def game(level, screen):
         soldier.time_counter(level, screen, SCREENHEIGHT)
         player.update_pos(angle_step)
         heli.follow(player.x, player.y)
-        second_heli.patrol(heli_x0, heli_y0)
+        second_heli.patrol(heli_x0, heli_y0, patrol_radius)
         heli.update_pos(player.x)
         second_heli.update_pos(player.x)
         screen.blit(image.image, image.rect)
@@ -187,15 +186,19 @@ def game(level, screen):
             screen.blit(soldier.image, soldier.rect)
 
         #Game over verification
+        object_group.add(soldier)
         game_over.measure_state(player, object_group)
+        object_group.remove(soldier)
 
         #Screen update
         pygame.display.update()
         clock.tick(20)  # Time do relógio
 
     if game_over.state:
+        pygame.mixer.music.stop()
         screen.blit(gameover.image, gameover.rect)
         pygame.display.update()
+        game_over_sound()
         while True:  # wait for user to acknowledge and return
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

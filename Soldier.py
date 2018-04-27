@@ -15,7 +15,7 @@ class Soldier(pygame.sprite.Sprite):
         self.y = 0
         self.state = False
         self.original_image = pygame.image.load('./assets/soldier.png')#change path directory
-        self.image = pygame.transform.scale(self.original_image, (100, 100))
+        self.image = pygame.transform.scale(self.original_image, (58, 79))
         self.change_state = False
         self.counter = 0
 
