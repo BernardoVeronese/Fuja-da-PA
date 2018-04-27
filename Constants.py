@@ -1,3 +1,5 @@
+import math
+
 # Parâmetros da Tela
 SCREENWIDTH = 945 #largura
 SCREENHEIGHT = 565 #altura
@@ -15,7 +17,7 @@ def player_constants(level):
     else:
         player_x0 = 0.445 * SCREENWIDTH
         player_y0 = 0.1 * SCREENHEIGHT
-        player_angle = 0
+        player_angle = 3*math.pi/2
     return (player_x0, player_y0, player_angle)
 
 
