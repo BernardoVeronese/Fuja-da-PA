@@ -49,7 +49,7 @@ GREY = (150, 150, 150)
 relogio = pygame.time.Clock() #relógio
 screen = pygame.display.set_mode([SCREENWIDTH, SCREENHEIGHT]) #tela
 
-# Inicialização de pacotes Pygame
+# Inicialização de pacotews Pygame
 pygame.init()
 
 def howtoplay():

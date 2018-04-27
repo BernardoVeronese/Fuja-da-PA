@@ -1,12 +1,3 @@
-Luiz Felipe, 130
-Bernardo Porto, 600
-Walter Marinho, 650
-Eduardo Barbosa, 705
-Fernando Fiorini, 875
-Eric Toshio, 654
-Matheus do Vale, 214
-Alan Dias, 763
-Marcelo Concli, 872
-Rafael Facchin, 546
-luiz felipe schiaveto, 0
-
+Luiz, 300
+luiz felipe, 1849
+luiz, 1852

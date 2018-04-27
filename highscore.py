@@ -11,7 +11,7 @@ SCREENHEIGHT = 565 #altura
 tela1 = Background('./assets/highscore1.png', [0, 0])
 tela2 = Background('./assets/highscore2.png', [0, 0])
 tela3 = Background('./assets/highscore3.png', [0, 0])
-gethigh = Background('./assets/gothighscore.png', [0, 0])
+gethigh = Background('./assets/gethighscore.png', [0, 0])
 nothigh = Background('./assets/notgothighscore.png', [0, 0])
 imagem = [tela1, tela2, tela3]
 
@@ -151,30 +151,9 @@ def enterbox(screen):
 
 # Método relacionado a coletar o Score de cada pessoa ao fim de cada fase
 def get_score(screen, file_name, your_points):
-    # pegar highscore atual
-    file = open(file_name, 'r')  # abrindo o arquivo
-    lines = file.readlines()  # lendo linhas do arquivo
 
-    all_score = []
-    for line in lines:  # para cada linha,
-        print(line)
-        sep = line.index(',')
-        name = line[:sep]
-        score = int(line[sep + 1:-1])
-        all_score.append((score, name))  # todos os dados armazenados em all_score
-    file.close
-
-    # ordenando o vetor de score
-    all_score.sort(reverse=True)  # sort from largest to smallest
-    best = all_score[:10]  # top 10 values)
-    ten = best[9]
-
-    if your_points > ten[0]:  # se o score é maior que o HighScore
-        screen.blit(gethigh.image, gethigh.rect)
-        your_name = enterbox(screen)
-    else:  # Se o score é menor que o HighScore
-        screen.blit(nothigh.image, nothigh.rect)
-        your_name = enterbox(screen)
+    screen.blit(gethigh.image, gethigh.rect)
+    your_name = enterbox(screen)
 
     if your_name == None or len(your_name) == 0:
         return  # do not update the file unless a name is given

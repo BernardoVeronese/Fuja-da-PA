@@ -8,6 +8,7 @@ from highscore import *
 from Functions import *
 from Soldier import *
 from pygame.locals import *
+from ObstaclesFase1 import *
 
 # Parâmetros da Tela
 SCREENWIDTH = 945 #largura
@@ -16,6 +17,9 @@ SCREENHEIGHT = 565 #altura
 # Imagem de Pause
 pausa = Background('./assets/pause.png', [0, 0])
 gameover = Background('./assets/GAMEOVER.png', [0, 0])
+intro1 = Background('./assets/intro1.png', [0, 0])
+intro2 = Background('./assets/intro2.png', [0, 0])
+intro3 = Background('./assets/intro3.png', [0, 0])
 
 def pause(screen):
     screen.blit(pausa.image, pausa.rect)
@@ -40,20 +44,69 @@ def measure_terrain(player, level, screen):
 def game(level, screen):
 
     score = 0
+    boolean = False
     time_initial = pygame.time.get_ticks()
     clock = pygame.time.Clock()
 
     #Level selection
     if level.id == '1':
         image = Background('./assets/Map_1.png', [0, 0])
-
+        point1 = checkpoint(842, 50)
+        point2 = checkpoint(130, 480)
+        screen.blit(intro1.image, intro1.rect)
+        pygame.display.update()
+        while True:  # wait for user to acknowledge and return
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN and event.key in [pygame.K_RETURN, pygame.K_KP_ENTER,
+                                                                  pygame.K_BACKSPACE]:
+                    boolean = True
+                    break
+            if boolean:
+                break
+            pygame.time.wait(20)
     elif level.id == '2':
         image = Background('./assets/Map_2.png', [0, 0])
-
+        point1 = checkpoint(730, 30)
+        point2 = checkpoint(858, 500)
+        screen.blit(intro2.image, intro2.rect)
+        pygame.display.update()
+        while True:  # wait for user to acknowledge and return
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN and event.key in [pygame.K_RETURN, pygame.K_KP_ENTER,
+                                                                  pygame.K_BACKSPACE]:
+                    boolean = True
+                    break
+            if boolean:
+                break
+            pygame.time.wait(20)
     else:
         image = Background('./assets/Map_3.png', [0, 0])
+        point1 = checkpoint(20, 70)
+        point2 = checkpoint(900, 400)
+        screen.blit(intro3.image, intro3.rect)
+        pygame.display.update()
+        while True:  # wait for user to acknowledge and return
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN and event.key in [pygame.K_RETURN, pygame.K_KP_ENTER,
+                                                                  pygame.K_BACKSPACE]:
+                    boolean = True
+                    break
+            if boolean:
+                break
+            pygame.time.wait(20)
 
     screen.blit(image.image, image.rect)
+    screen.blit(point1.image, point1.rect)
+    screen.blit(point2.image, point2.rect)
 
     #Initialization variables
     player_x0 = 0.1*SCREENWIDTH
@@ -100,15 +153,16 @@ def game(level, screen):
         terrain_factor = measure_terrain(player, level, screen)
 
         # Atualização de Score e Verificação de Flags das etapas dos Jogos
-        if level.verificarmissao(player.x, player.y, screen):
+        if level.verificarmissao(player, point1, point2):
             time_flag = pygame.time.get_ticks()
             Font = pygame.font.SysFont("arial", 20, True)
             txt_surf = Font.render("CHECKPOINT ACEITO", True, WHITE)
-            screen.blit(txt_surf, (900, 450))
+            screen.blit(txt_surf, (700, 450))
+            pygame.display.update()
             score += int(1000 - 5 * (time_flag / 1000 - time_initial / 1000))  # modelo de Score
 
         if level.vencedor():
-            get_score(screen, level.file(), score)
+            get_score(screen, './data_highscore/highscore1.txt', score)
             break
 
         #Player movement
@@ -126,6 +180,8 @@ def game(level, screen):
         second_heli.update_pos(player.x)
         screen.blit(image.image, image.rect)
         screen.blit(player.image, player.rect)
+        screen.blit(point1.image, point1.rect)
+        screen.blit(point2.image, point2.rect)
         object_group.draw(screen)
         if soldier.state:
             screen.blit(soldier.image, soldier.rect)

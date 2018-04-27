@@ -1,6 +1,7 @@
 # Libraries
 from math import *
 import pygame
+import sys
 
 # Este arquivo .py contém:
 # def quitgame: responsável por finalizar programa
