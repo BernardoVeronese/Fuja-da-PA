@@ -42,8 +42,8 @@ def game(level, screen):
     player_y0 = 0.27*SCREENHEIGHT
     player_angle = 0
 
-    heli_x0 = 0.4*SCREENWIDTH
-    heli_y0 = 0
+    heli_x0 = 0.7*SCREENWIDTH
+    heli_y0 = 0.5*SCREENHEIGHT
     heli_angle = 0
 
     #Terrain parameters
@@ -89,7 +89,7 @@ def game(level, screen):
         soldier.time_counter(level, screen, SCREENHEIGHT)
         player.update_pos(angle_step)
         heli.follow(player.x, player.y)
-        second_heli.follow(player.x, player.y)
+        second_heli.patrol(heli_x0, heli_y0)
         heli.update_pos(player.x)
         second_heli.update_pos(player.x)
         screen.blit(image.image, image.rect)

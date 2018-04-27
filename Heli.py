@@ -4,6 +4,8 @@ import math
 
 #Constants
 APPROACH_CONSTANT = 4
+ANGLE_STEP = 0.05
+RADIUS = 60
 
 #Simple player object
 class Heli(pygame.sprite.Sprite):
@@ -71,4 +73,9 @@ class Heli(pygame.sprite.Sprite):
     def collided(self, sprite):
         return self.rect.colliderect(sprite.rect)
 
-   # def patrol(self):
+    def patrol(self, x_locus, y_locus):
+        self.x = x_locus+math.cos(self.angle) * RADIUS
+        self.y = y_locus+math.sin(self.angle) * RADIUS
+        self.angle -= ANGLE_STEP
+        self.angle %= 2 * math.pi
+
