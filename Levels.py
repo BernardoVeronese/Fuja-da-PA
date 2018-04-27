@@ -59,7 +59,7 @@ class fase1:
             txt_surf = Font.render("Fase 1 completa!", True, fase1.WHITE)
             txt_rect = txt_surf.get_rect()
             screen.blit(txt_surf, txt_rect)
-            pygame.displat.update()
+            pygame.display.update()
 
         if screen.get_at((x, y)) == fase1.YELLOW and x < 470:
             if fase1.flag1:
@@ -102,7 +102,7 @@ class fase2:
     OBSTACULO3 = (0, 0, 0)
     OBSTACULO4 = (37, 102, 3)
     RED = (255, 0, 0)
-    STREET = (68,57,55)
+    STREET = (68, 57, 55)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
     YELLOW = (248, 202, 0)
@@ -180,7 +180,7 @@ class fase3:
     OBSTACULO3 = (0, 0, 0)
     OBSTACULO4 = (37, 102, 3)
     RED = (255, 0, 0)
-    STREET = (68,57,55)
+    STREET = (77, 77, 77)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
     YELLOW = (248, 202, 0)
