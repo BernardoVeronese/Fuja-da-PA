@@ -2,6 +2,7 @@
 import pygame
 import sys
 from Functions import *
+import string
 
 # Parâmetros da Tela
 SCREENWIDTH = 945 #largura
@@ -156,6 +157,7 @@ def get_score(screen, file_name, your_points):
 
     all_score = []
     for line in lines:  # para cada linha,
+        print(line)
         sep = line.index(',')
         name = line[:sep]
         score = int(line[sep + 1:-1])

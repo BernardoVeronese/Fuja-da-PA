@@ -53,18 +53,13 @@ class fase1:
         y = int(y)
         if screen.get_at((x, y)) == fase1.YELLOW and x > 470:
             fase1.flag1 = True
-            fase1.time_flag1 = pygame.time.get_ticks()
-            Font = pygame.font.SysFont("arial", 20, True)
-            pygame.draw.rect(screen, fase1.GRASS, (50, 60, 450, 900), 0)
-            txt_surf = Font.render("Fase 1 completa!", True, fase1.WHITE)
-            txt_rect = txt_surf.get_rect()
-            screen.blit(txt_surf, txt_rect)
-            pygame.display.update()
-
-        if screen.get_at((x, y)) == fase1.YELLOW and x < 470:
+            return True
+        elif screen.get_at((x, y)) == fase1.YELLOW and x < 470:
             if fase1.flag1:
                 fase1.flag2 = True
                 fase1.time_flag2 = pygame.time.get_ticks()
+                return True
+        return False
 
     def vencedor(self):
         if fase1.flag1 and fase1.flag2:
@@ -153,7 +148,7 @@ class fase2:
     def Street(self, x, y, screen):
         x = int(x)
         y = int(y)
-        if screen.get_at((x, y)) == fase2.STREET or screen.get_at((x, y)) == fase2.WHITE:
+        if screen.get_at((x, y)) in (fase2.STREET, fase2.WHITE, fase2.WHITE2):
             return True
         return False
 
@@ -231,6 +226,6 @@ class fase3:
     def Street(self, x, y, screen):
         x = int(x)
         y = int(y)
-        if screen.get_at((x, y)) == fase3.STREET or screen.get_at((x,y)) == fase3.WHITE:
+        if screen.get_at((x, y)) in (fase3.STREET, fase3.WHITE, fase3.WHITE2):
             return True
         return False
