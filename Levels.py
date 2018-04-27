@@ -102,7 +102,7 @@ class fase2:
     OBSTACULO3 = (0, 0, 0)
     OBSTACULO4 = (37, 102, 3)
     RED = (255, 0, 0)
-    STREET = (68, 57, 55)
+    STREET = (77, 77, 77)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
     YELLOW = (248, 202, 0)
