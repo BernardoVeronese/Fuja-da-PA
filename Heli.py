@@ -1,6 +1,10 @@
 import pygame
 import math
 
+
+#Constants
+APPROACH_CONSTANT = 4
+
 #Simple player object
 class Heli(pygame.sprite.Sprite):
     '''In main:
@@ -24,6 +28,7 @@ class Heli(pygame.sprite.Sprite):
         # Movement parameters
         self.directionx = x0
         self.directiony = y0
+        self.distance = x0+y0
         self.angle = angle0
         self.newangle = angle0
         self.speed = 3
@@ -34,9 +39,9 @@ class Heli(pygame.sprite.Sprite):
         #Calculating new direction
         self.directionx = playerx-self.x
         self.directiony = playery-self.y
-        distance = math.sqrt(self.directionx*self.directionx+self.directiony*self.directiony)
-        self.directionx /= distance
-        self.directiony /= distance
+        self.distance = math.sqrt(self.directionx*self.directionx+self.directiony*self.directiony)
+        self.directionx /= self.distance
+        self.directiony /= self.distance
         #self.new_angle = math.atan2(self.directiony, self.directionx)
         #self.angle %= 2 * math.pi
         #Updating course
@@ -57,11 +62,13 @@ class Heli(pygame.sprite.Sprite):
         '''self.image = pygame.transform.rotate(self.original_image, -self.angle*180/math.pi)
         self.angle = self.new_angle
         self.angle %= 2 * math.pi'''
-        if self.orientation_shift(playerx):
-            self.image = pygame.transform.flip(self.image,True, False)
+        if self.orientation_shift(playerx) and self.distance > APPROACH_CONSTANT:
+            self.image = pygame.transform.flip(self.image, True, False)
         x, y = self.rect.center  # Save its current center.
         self.rect = self.image.get_rect()  # Replace old rect with new rect.
         self.rect.center = (self.x, self.y)  # Put the new rect's center at old center.
 
     def collided(self, sprite):
         return self.rect.colliderect(sprite.rect)
+
+   # def patrol(self):
