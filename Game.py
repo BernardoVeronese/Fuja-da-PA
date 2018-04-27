@@ -142,6 +142,7 @@ def game(level, screen):
         pygame.mixer.music.stop()
         screen.blit(gameover.image, gameover.rect)
         pygame.display.update()
+        game_over_sound()
         while True:  # wait for user to acknowledge and return
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
