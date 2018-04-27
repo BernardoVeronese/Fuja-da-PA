@@ -23,9 +23,12 @@ class fase1:
     OBSTACULO3 = (0, 0, 0)
     OBSTACULO4 = (37, 102, 3)
     RED = (255, 0, 0)
-    STREET = (77, 77, 77)
+    STREET = (68, 57, 55)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
+    YELLOW = (248, 202, 0)
+    WHITE2 = (246, 239, 220)
+    GRASS = (62, 192, 96)
 
     def __init__(self, screen):
         self.id = '1'
@@ -48,21 +51,20 @@ class fase1:
     def verificarmissao(self, x, y, screen):
         x = int(x)
         y = int(y)
-        if screen.get_at((x, y)) == fase1.RED and x > 470:
+        if screen.get_at((x, y)) == fase1.YELLOW and x > 470:
             fase1.flag1 = True
             fase1.time_flag1 = pygame.time.get_ticks()
-            pygame.draw.rect(screen, fase1.WHITE, (30, 30, 150, 30), 1)
-            txt_surf = fase1.Font.render("Etapa 1 concluída", True, fase1.BLACK)
-            txt_rect = txt_surf.get_rect(center=(150 // 2, 30))
+            Font = pygame.font.SysFont("arial", 20, True)
+            pygame.draw.rect(screen, fase1.GRASS, (50, 60, 450, 900), 0)
+            txt_surf = Font.render("Fase 1 completa!", True, fase1.WHITE)
+            txt_rect = txt_surf.get_rect()
             screen.blit(txt_surf, txt_rect)
-        if screen.get_at((x, y)) == fase1.RED and x < 470:
+            pygame.displat.update()
+
+        if screen.get_at((x, y)) == fase1.YELLOW and x < 470:
             if fase1.flag1:
                 fase1.flag2 = True
                 fase1.time_flag2 = pygame.time.get_ticks()
-                pygame.draw.rect(screen, fase1.WHITE, (30, 30, 150, 30), 1)
-                txt_surf = fase1.Font.render("Etapa 2 concluída", True, fase1.BLACK)
-                txt_rect = txt_surf.get_rect(center=(150 // 2, 30))
-                screen.blit(txt_surf, txt_rect)
 
     def vencedor(self):
         if fase1.flag1 and fase1.flag2:
@@ -72,7 +74,7 @@ class fase1:
     def Street(self, x, y, screen):
         x = int(x)
         y = int(y)
-        if screen.get_at((x, y)) == fase1.STREET:
+        if screen.get_at((x, y)) in (fase1.STREET, fase1.WHITE, fase1.WHITE2):
             return True
         return False
 
@@ -103,6 +105,8 @@ class fase2:
     STREET = (77, 77, 77)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
+    YELLOW = (248, 202, 0)
+    WHITE2 = (246, 239, 220)
 
     def __init__(self, screen):
         self.id = '2'
@@ -125,14 +129,14 @@ class fase2:
     def verificarmissao(self, x, y, screen):
         x = int(x)
         y = int(y)
-        if screen.get_at((x, y)) == fase2.RED and x > 470:
+        if screen.get_at((x, y)) == fase2.YELLOW and x > 470:
             fase2.flag1 = True
             fase2.time_flag1 = pygame.time.get_ticks()
             pygame.draw.rect(screen, fase2.WHITE, (30, 30, 150, 30), 1)
             txt_surf = fase2.Font.render("Etapa 1 concluída", True, fase2.BLACK)
             txt_rect = txt_surf.get_rect(center=(150 // 2, 30))
             screen.blit(txt_surf, txt_rect)
-        if screen.get_at((x, y)) == fase2.RED and x < 470:
+        if screen.get_at((x, y)) == fase2.YELLOW and x < 470:
             if fase2.flag1:
                 fase2.flag2 = True
                 fase2.time_flag2 = pygame.time.get_ticks()
@@ -149,7 +153,7 @@ class fase2:
     def Street(self, x, y, screen):
         x = int(x)
         y = int(y)
-        if screen.get_at((x, y)) == fase2.STREET:
+        if screen.get_at((x, y)) in (fase2.STREET, fase2.WHITE, fase2.WHITE2):
             return True
         return False
 
@@ -179,6 +183,8 @@ class fase3:
     STREET = (77, 77, 77)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
+    YELLOW = (248, 202, 0)
+    WHITE2 = (246, 239, 220)
 
     def __init__(self, screen):
         self.id = '3'
@@ -199,16 +205,16 @@ class fase3:
         return False
 
     def verificarmissao(self, x, y, screen):
-        x = int(x)
-        y = int(y)
-        if screen.get_at((x, y)) == fase3.RED and x > 470:
+        x = int(x)+5
+        y = int(y)+5
+        if screen.get_at((x, y)) == fase3.YELLOW and x > 470:
             fase3.flag1 = True
             fase3.time_flag1 = pygame.time.get_ticks()
             pygame.draw.rect(screen, fase3.WHITE, (30, 30, 150, 30), 1)
             txt_surf = fase3.Font.render("Etapa 1 concluída", True, fase3.BLACK)
             txt_rect = txt_surf.get_rect(center=(150 // 2, 30))
             screen.blit(txt_surf, txt_rect)
-        if screen.get_at((x, y)) == fase3.RED and x < 470:
+        if screen.get_at((x, y)) == fase3.YELLOW and x < 470:
             if fase3.flag1:
                 fase3.flag2 = True
                 fase3.time_flag2 = pygame.time.get_ticks()
@@ -225,6 +231,6 @@ class fase3:
     def Street(self, x, y, screen):
         x = int(x)
         y = int(y)
-        if screen.get_at((x, y)) == fase3.STREET:
+        if screen.get_at((x, y)) in (fase3.STREET, fase3.WHITE, fase3.WHITE2):
             return True
         return False

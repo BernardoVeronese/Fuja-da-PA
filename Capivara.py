@@ -4,7 +4,7 @@ from random import *
 
 #Constants
 COUNTER_THRESHOLD = 200
-GRASS = (169, 209, 142)
+GRASS = (62, 192, 96)
 
 
 def Grass(x, y, screen):

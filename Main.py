@@ -45,7 +45,7 @@ BRIGHT_RED = (255,   0,   0)
 BRIGHT_GREEN = (0, 255,   0)
 GREY = (150, 150, 150)
 
-# Variaveis Globais
+# Variaveis aGlobais
 relogio = pygame.time.Clock() #relógio
 screen = pygame.display.set_mode([SCREENWIDTH, SCREENHEIGHT]) #tela
 

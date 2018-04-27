@@ -10,6 +10,8 @@ SCREENHEIGHT = 565 #altura
 tela1 = Background('./assets/highscore1.png', [0, 0])
 tela2 = Background('./assets/highscore2.png', [0, 0])
 tela3 = Background('./assets/highscore3.png', [0, 0])
+gethigh = Background('./assets/gothighscore.png', [0, 0])
+nothigh = Background('./assets/notgothighscore.png', [0, 0])
 imagem = [tela1, tela2, tela3]
 
 # Cores RGB
@@ -22,6 +24,7 @@ BRIGHT_GREEN = (0, 255,   0)
 GREY = (150, 150, 150)
 SKYBLUE = (135, 206, 235)
 YELLOW = (251, 223, 60)
+YELLOW2 = (248, 202, 0)
 
 # Retorno de nome e Score do HighScore a partir do histórico dos dados de Score
 def read_from_file_and_find_highscore(file_name):
@@ -93,37 +96,32 @@ def show_top10(screen, file_name, fase):
         pygame.time.wait(20)
 
 
-def enterbox(screen, txt):
+def enterbox(screen):
     def blink(screen):
-        for color in [GREY, WHITE]:
+        for color in [YELLOW, WHITE]:
             pygame.draw.circle(box, color, (bx // 2, int(by * 0.7)), 7, 0)
-            screen.blit(box, (0, by // 2))
+            screen.blit(box, (210, 435))
             pygame.display.flip()
             pygame.time.wait(300)
 
     def show_name(screen, name):
         # Definição da Fonte
+        box.fill(WHITE)
         Font = pygame.font.SysFont("arial", 20, True)
         pygame.draw.rect(box, WHITE, (50, 60, bx - 100, 20), 0)
         txt_surf = Font.render(name, True, BLACK)
         txt_rect = txt_surf.get_rect(center=(bx // 2, int(by * 0.7)))
         box.blit(txt_surf, txt_rect)
-        screen.blit(box, (0, by // 2))
+        screen.blit(box, (210, 435))
         pygame.display.flip()
 
-    # Definiçãoda Fonte
-    Font = pygame.font.SysFont("arial", 20, True)
-
     bx = 480
-    by = 100
+    by = 35
 
     # make box
     box = pygame.surface.Surface((bx, by))
-    box.fill(GREY)
-    pygame.draw.rect(box, BLACK, (0, 0, bx, by), 1)
-    txt_surf = Font.render(txt, True, BLACK)
-    txt_rect = txt_surf.get_rect(center=(bx // 2, int(by * 0.3)))
-    box.blit(txt_surf, txt_rect)
+    box.fill(WHITE)
+    pygame.draw.rect(box, WHITE, (0, 0, bx, by), 1)
 
     name = ""
     show_name(screen, name)
@@ -143,8 +141,6 @@ def enterbox(screen, txt):
                 elif inkey == 8:  # backspace key
                     name = name[:-1]
                 elif inkey <= 300:  # characters keys
-                    if pygame.key.get_mods() & pygame.KMOD_SHIFT and 122 >= inkey >= 97:
-                        inkey -= 32  # handles CAPITAL input
                     name += chr(inkey)
 
         if name == "":
@@ -155,20 +151,28 @@ def enterbox(screen, txt):
 # Método relacionado a coletar o Score de cada pessoa ao fim de cada fase
 def get_score(screen, file_name, your_points):
     # pegar highscore atual
-    high_name, high_score = read_from_file_and_find_highscore(file_name)
+    file = open(file_name, 'r')  # abrindo o arquivo
+    lines = file.readlines()  # lendo linhas do arquivo
 
-    if your_points > high_score:  # se o score é maior que o HighScore
-        your_name = enterbox(screen, "Você bateu o High Score! Qual seu nome?")
+    all_score = []
+    for line in lines:  # para cada linha,
+        sep = line.index(',')
+        name = line[:sep]
+        score = int(line[sep + 1:-1])
+        all_score.append((score, name))  # todos os dados armazenados em all_score
+    file.close
 
-    elif your_points == high_score:  # se o score é igual ao HighScore
-        your_name = enterbox(screen, "Você conseguiu o mesmo Score do High Score. Qual seu nome?")
+    # ordenando o vetor de score
+    all_score.sort(reverse=True)  # sort from largest to smallest
+    best = all_score[:10]  # top 10 values)
+    ten = best[9]
 
-    elif your_points < high_score:  # Se o score é menor que o HighScore
-        st1 = "O Highscore é "
-        st2 = " feito por "
-        st3 = "   Qual o seu nome?"
-        txt = st1 + str(high_score) + st2 + high_name + st3
-        your_name = enterbox(screen, txt)
+    if your_points > ten[0]:  # se o score é maior que o HighScore
+        screen.blit(gethigh.image, gethigh.rect)
+        your_name = enterbox(screen)
+    else:  # Se o score é menor que o HighScore
+        screen.blit(nothigh.image, nothigh.rect)
+        your_name = enterbox(screen)
 
     if your_name == None or len(your_name) == 0:
         return  # do not update the file unless a name is given
