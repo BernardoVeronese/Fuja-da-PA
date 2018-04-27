@@ -6,10 +6,27 @@ from Heli import *
 from Capivara import *
 from highscore import *
 from Functions import *
+from pygame.locals import *
 
 # Parâmetros da Tela
 SCREENWIDTH = 945 #largura
 SCREENHEIGHT = 565 #altura
+
+# Imagem de Pause
+pausa = Background('./assets/pause.png', [0, 0])
+
+def pause(screen):
+    screen.blit(pausa.image, pausa.rect)
+    pygame.display.update()
+
+    while True:  # wait for user to acknowledge and return
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN and event.key in [pygame.K_RETURN, pygame.K_KP_ENTER, pygame.K_BACKSPACE]:
+                return
+        pygame.time.wait(20)
 
 def measure_terrain(player, level, screen):
     aux_terrain = 1
@@ -68,6 +85,8 @@ def game(level, screen):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            elif event.type == KEYDOWN and event.key == K_p:
+                pause(screen)
             player.handle_event(event)
         #Handle terrain
         screen.blit(image.image, image.rect)
