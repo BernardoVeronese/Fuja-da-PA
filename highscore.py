@@ -1,19 +1,21 @@
 # Libraries
 import pygame
 import sys
-from Functions import *
+from Background import *
 import string
 
 # Parâmetros da Tela
 SCREENWIDTH = 945 #largura
 SCREENHEIGHT = 565 #altura
 
-tela1 = Background('./assets/highscore1.png', [0, 0])
-tela2 = Background('./assets/highscore2.png', [0, 0])
-tela3 = Background('./assets/highscore3.png', [0, 0])
-gethigh = Background('./assets/gethighscore.png', [0, 0])
-nothigh = Background('./assets/notgothighscore.png', [0, 0])
+# Visual Screen definitions
+tela1 = Background('./Images/Visual Screen/highscorescreen_1.png', [0, 0])
+tela2 = Background('./Images/Visual Screen/highscorescreen_2.png', [0, 0])
+tela3 = Background('./Images/Visual Screen/highscorescreen_3.png', [0, 0])
 imagem = [tela1, tela2, tela3]
+
+# State Screen definitions
+gethigh = Background('./Images/State Screen/getscore_screen.png', [0, 0])
 
 # Cores RGB
 WHITE = (255, 255, 255)
@@ -49,7 +51,7 @@ def read_from_file_and_find_highscore(file_name):
 
 # Escrita de Score de um Jogo no arquivo de Texto
 def write_to_file(file_name, your_name, points):
-    score_file = open(file_name, 'a')
+    score_file = open(file_name, 'w')
     print(your_name + ",", points, file=score_file)
     score_file.close()
 

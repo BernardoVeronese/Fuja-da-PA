@@ -1,5 +1,8 @@
+# Libraries
 import pygame
 
+# -------------------------------------- #
+# CLASSES
 
 class GameOver(object):
     def __init__(self):

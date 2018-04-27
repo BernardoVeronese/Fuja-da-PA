@@ -1,20 +1,30 @@
+# Libraries
 import pygame
 import math
 from random import *
 
-#Constants
+# -------------------------------------- #
+# VARIABLES
+
+# Constants
 COUNTER_THRESHOLD = 150
 GRASS = (62, 192, 96)
 
+# -------------------------------------- #
+# METHODS
 
-def Grass(x, y, screen):
+
+def grass(x, y, screen):
     x = int(x)
     y = int(y)
     if screen.get_at((x, y)) == GRASS:
         return True
     return False
 
-#Simple player object
+# -------------------------------------- #
+# CLASSES
+
+
 class Capivara(pygame.sprite.Sprite):
 
     # Initialization
@@ -23,7 +33,7 @@ class Capivara(pygame.sprite.Sprite):
         self.x = -50
         self.y = -50
         self.state = False
-        self.original_image = pygame.image.load('./assets/capivara.png')#change path directory
+        self.original_image = pygame.image.load('./Images/Icons/capivara.png')  # change path directory
         self.image = pygame.transform.scale(self.original_image, (70, 70))
         self.change_state = False
         self.counter = 0
@@ -32,35 +42,30 @@ class Capivara(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
 
-
     def state_change(self, level, screen, screen_size):
         if self.state:
             self.killer(level, screen, screen_size)
         else:
             self.spawner(level, screen, screen_size)
 
-
     def collided(self,sprite):
         return self.rect.colliderect(sprite.rect)
-
 
     def time_counter(self, level, screen, screen_size):
         self.counter += 1
         if self.counter >= COUNTER_THRESHOLD:
             self.state_change(level, screen, screen_size)
             self.counter = 0
-        #ADD IF(COLLIDED) > SELF.KILLER()
-
+        # ADD IF(COLLIDED) > SELF.KILLER()
 
     def update_pos(self):
         self.rect = self.image.get_rect()  # Replace old rect with new rect.
         self.rect.center = (self.x, self.y)  # Put the new rect's center at old center.
 
-
-    def spawner(self, level, screen, screen_size):#screen_size addition later
-        x_pos = randint(0, screen_size) #Change
+    def spawner(self, level, screen, screen_size):  # screen_size addition later
+        x_pos = randint(0, screen_size)  # Change
         y_pos = randint(0, screen_size)
-        while not level.Street(x_pos, y_pos, screen):
+        while not level.street(x_pos, y_pos):
             x_pos = randint(0, screen_size)
             y_pos = randint(0, screen_size)
         self.x = x_pos
@@ -68,17 +73,13 @@ class Capivara(pygame.sprite.Sprite):
         self.update_pos()
         self.state = True
 
-
-    def killer(self, level, screen, screen_size):#screen_size addition later
-        x_pos = randint(0, screen_size) #Change
+    def killer(self, level, screen, screen_size):  # screen_size addition later
+        x_pos = randint(0, screen_size)  # Change
         y_pos = randint(0, screen_size)
-        while not Grass(x_pos, y_pos, screen):
+        while not grass(x_pos, y_pos, screen):
             x_pos = randint(0, screen_size)
             y_pos = randint(0, screen_size)
         self.x = x_pos
         self.y = y_pos
         self.update_pos()
         self.state = False
-
-
-

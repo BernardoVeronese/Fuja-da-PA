@@ -1,42 +1,39 @@
+# Libraries
 import pygame
 import sys
 import time
 from pygame.locals import *
-from Functions import *
-from Levels import *
-from highscore import *
-from Menu import *
+from Background import *
+from Level import *
+from Highscore import *
 from LevelSelection import *
 from Game import *
 
-# Este arquivo .py contém:
-# def main: função que promove o Menu inicial do Jogo
-# def nivel: função que promove o Menu de escolha de fase
-# def highscore: função que promove o Menu de visualização de HighScore
+# -------------------------------------- #
+# VARIABLES
 
-# Parâmetros da Tela
-SCREENWIDTH = 945 #largura
-SCREENHEIGHT = 565 #altura
+# Screen parameters
+SCREENWIDTH = 945
+SCREENHEIGHT = 565
 MARGEMD = 120
 MARGEMC = 200
 ESPACAMENTO = 50
 
-# Definição de capa inicial
-Capa1 = Background('./assets/menu1.png', [0, 0])
-Capa2 = Background('./assets/menu2.png', [0, 0])
-Capa3 = Background('./assets/menu3.png', [0, 0])
-imagem = [Capa1, Capa2, Capa3]
-Capa12 = Background('./assets/fase1.png', [0, 0])
-Capa22 = Background('./assets/fase2.png', [0, 0])
-Capa32 = Background('./assets/fase3.png', [0, 0])
-imagem2 = [Capa12, Capa22, Capa32]
-tuto = Background('./assets/comojogar.png', [0,0])
+# Visual Screen definitions
+Capa1 = Background('./Images/Visual Screen/menuinicial_1.png', [0, 0])
+Capa2 = Background('./Images/Visual Screen/menuinicial_2.png', [0, 0])
+Capa3 = Background('./Images/Visual Screen/menuinicial_3.png', [0, 0])
+menuinicial = [Capa1, Capa2, Capa3]  # Initial menu options
 
-#Parâmetros de dimensão do Botão
-BUTTONWIDTH = 180 #largura
-BUTTONHEIGHT = 30 #altura
+Capa12 = Background('./Images/Visual Screen/levelselection_1.png', [0, 0])
+Capa22 = Background('./Images/Visual Screen/levelselection_2.png', [0, 0])
+Capa32 = Background('./Images/Visual Screen/levelselection_3.png', [0, 0])
+levelselection = [Capa12, Capa22, Capa32]  # Level seletion options
 
-# Cores RGB
+# State Screen definitions
+tutorial = Background('./Images/State Screen/howtoplay_screen.png', [0, 0])  # How to Play instructions
+
+# RGB Colors
 WHITE = (255, 255, 255)
 BLACK = (0,   0,   0)
 RED = (155,   0,   0)
@@ -45,26 +42,31 @@ BRIGHT_RED = (255,   0,   0)
 BRIGHT_GREEN = (0, 255,   0)
 GREY = (150, 150, 150)
 
-# Variaveis aGlobais
-relogio = pygame.time.Clock() #relógio
-screen = pygame.display.set_mode([SCREENWIDTH, SCREENHEIGHT]) #tela
+# Others global variables
+relogio = pygame.time.Clock()  # clock
+screen = pygame.display.set_mode([SCREENWIDTH, SCREENHEIGHT])  # screen
 
-# Inicialização de pacotews Pygame
+# Initialiazing pygame ...
 pygame.init()
 
+# -------------------------------------- #
+# METHODS
+
+
+# howtoplay() displays how to play instructions until BACKSPACE is pressed
 def howtoplay():
-    screen.blit(tuto.image, tuto.rect)
+    screen.blit(tutorial.image, tutorial.rect)
+    pygame.display.update()
     while True:
-        pygame.display.update()
-        relogio.tick(10)  # Pequeno intervalo de tempo antes do início do Loop
-        for event in pygame.event.get():  # Lidando com os eventos do Usuário
+        relogio.tick(10)
+        for event in pygame.event.get():
             # 1ro evento - Sair do jogo
-            if event.type == QUIT:  # se evento for terminar
+            if event.type == QUIT:
                 quitgame()
             # 2ndo evento - Teclado o 'ESC'
             elif event.type == KEYDOWN and event.key == K_ESCAPE:
                 quitgame()
-            # 3ro evento - Pressionando tecla
+            # 3ro evento - Pressionando tecla BACKSPACE
             elif event.type == KEYDOWN:
                 if event.key == K_BACKSPACE:
                     return
@@ -73,17 +75,15 @@ def howtoplay():
             pygame.display.update()
 
 
-def highscore():  # Função que promove o menu para visualização de HighScores
-    relogio = pygame.time.Clock()
-    focus = 0
-    screen.blit(imagem2[focus].image, imagem2[focus].rect)
-
+# highscore() asks the player which highscore's level he wants to check, and show it
+def highscore():
+    focus = 0  # First screen options
     while True:
-        screen.blit(imagem2[focus].image, imagem2[focus].rect)  # Blit novamente da imagem de fundo
-        relogio.tick(10)  # Pequeno intervalo de tempo antes do início do Loop
-        for event in pygame.event.get():  # Lidando com os eventos do Usuário
+        screen.blit(levelselection[focus].image, levelselection[focus].rect)
+        relogio.tick(10)
+        for event in pygame.event.get():
             # 1ro evento - Sair do jogo
-            if event.type == QUIT:  # se evento for terminar
+            if event.type == QUIT:
                 quitgame()
             # 2ndo evento - Teclado o 'ESC'
             elif event.type == KEYDOWN and event.key == K_ESCAPE:
@@ -94,13 +94,13 @@ def highscore():  # Função que promove o menu para visualização de HighScore
                     # Se a posição do clique está dentro do escopo dos itens
                     if 287 < event.pos[0] < 631 and 385 < event.pos[1] < 535:
                         if event.pos[1] < 435:
-                            filename = './data_highscore/highscore1.txt'
+                            filename = './Data_highscore/highscore1.txt'
                             show_top10(screen, filename, focus)
                         elif event.pos[1] < 485:
-                            filename = './data_highscore/highscore2.txt'
+                            filename = './Data_highscore/highscore2.txt'
                             show_top10(screen, filename, focus)
                         else:
-                            filename = './data_highscore/highscore3.txt'
+                            filename = './Data_highscore/highscore3.txt'
                             show_top10(screen, filename, focus)
             # 4to evento - Movimento do Mouse
             elif event.type == MOUSEMOTION:
@@ -108,54 +108,49 @@ def highscore():  # Função que promove o menu para visualização de HighScore
                 if 287 < event.pos[0] < 631 and 385 < event.pos[1] < 535:
                     if event.pos[1] < 435:
                         focus = 0
-                        screen.blit(imagem2[focus].image, imagem2[focus].rect)
+                        screen.blit(levelselection[focus].image, levelselection[focus].rect)
                     elif event.pos[1] < 485:
                         focus = 1
-                        screen.blit(imagem2[focus].image, imagem2[focus].rect)
+                        screen.blit(levelselection[focus].image, levelselection[focus].rect)
                     else:
                         focus = 2
-                        screen.blit(imagem2[focus].image, imagem2[focus].rect)
+                        screen.blit(levelselection[focus].image, levelselection[focus].rect)
             # 5to evento - Tecla pressionada
             elif event.type == KEYDOWN:
                 # Considerando setas do teclado
                 if event.key in (K_DOWN, K_RIGHT):
                     focus = (focus + 1) % 3
-                    screen.blit(imagem2[focus].image, imagem2[focus].rect)
+                    screen.blit(levelselection[focus].image, levelselection[focus].rect)
                 elif event.key in (K_UP, K_LEFT):
                     focus = (focus - 1) % 3
-                    screen.blit(imagem2[focus].image, imagem2[focus].rect)
-                # Considerando teclas de Return e Espaço
+                    screen.blit(levelselection[focus].image, levelselection[focus].rect)
+                # Considerando teclas de Return, Enter e Espaço
                 elif event.key in (K_RETURN, K_SPACE, K_KP_ENTER):
                     if focus == 0:
-                        filename = './data_highscore/highscore1.txt'
+                        filename = './Data_highscore/highscore1.txt'
                         show_top10(screen, filename, focus)
                     elif focus == 1:
-                        filename = './data_highscore/highscore2.txt'
+                        filename = './Data_highscore/highscore2.txt'
                         show_top10(screen, filename, focus)
                     elif focus == 2:
-                        filename = './data_highscore/highscore3.txt'
+                        filename = './Data_highscore/highscore3.txt'
                         show_top10(screen, filename, focus)
+                # Considerando BACKSPACE
                 elif event.key == K_BACKSPACE:
                     return
                 else:
                     pass
 
-            pygame.display.update()  # Atualização do Display
+            pygame.display.update()
 
 
-def main():  # Função que promove o menu de início de Jogo
-    # Definição de Legenda da Tela
-    pygame.display.set_caption("Game - Fuja da PA!")
-
-    # Chamada do menu de início do jogo
-    focus = 0
-    screen.blit(imagem[focus].image, imagem[focus].rect)
-
-    while True:  # Loop relacionado ao menu inicial do Jogo
-
-        screen.blit(imagem[focus].image, imagem[focus].rect)  # Blit novamente da imagem de fundo
-        relogio.tick(10)  # Pequeno intervalo de tempo antes do início do Loop
-        for event in pygame.event.get():  # Lidando com os eventos do Usuário
+# main() provides the game start, and the player must choose between how to play, play or check high scores
+def main():
+    pygame.display.set_caption("Game - Fuja da PA!")  # Definição de Legenda da Tela
+    focus = 0  # First screen options
+    while True:
+        screen.blit(menuinicial[focus].image, menuinicial[focus].rect)
+        for event in pygame.event.get():
             # 1ro evento - Sair do jogo
             if event.type == QUIT:  # se evento for terminar
                 quitgame()
@@ -179,22 +174,22 @@ def main():  # Função que promove o menu de início de Jogo
                 if 287 < event.pos[0] < 631 and 385 < event.pos[1] < 535:
                     if event.pos[1] < 435:
                         focus = 0
-                        screen.blit(imagem[focus].image, imagem[focus].rect)
+                        screen.blit(menuinicial[focus].image, menuinicial[focus].rect)
                     elif event.pos[1] < 485:
                         focus = 1
-                        screen.blit(imagem[focus].image, imagem[focus].rect)
+                        screen.blit(menuinicial[focus].image, menuinicial[focus].rect)
                     else:
                         focus = 2
-                        screen.blit(imagem[focus].image, imagem[focus].rect)
+                        screen.blit(menuinicial[focus].image, menuinicial[focus].rect)
             # 5to evento - Tecla pressionada
             elif event.type == KEYDOWN:
                 # Considerando setas do teclado
                 if event.key in (K_DOWN, K_RIGHT):
                     focus = (focus + 1) % 3
-                    screen.blit(imagem[focus].image, imagem[focus].rect)
+                    screen.blit(menuinicial[focus].image, menuinicial[focus].rect)
                 elif event.key in (K_UP, K_LEFT):
                     focus = (focus - 1) % 3
-                    screen.blit(imagem[focus].image, imagem[focus].rect)
+                    screen.blit(menuinicial[focus].image, menuinicial[focus].rect)
                 # Considerando teclas de Return e Espaço
                 elif event.key in (K_RETURN, K_SPACE, K_KP_ENTER):
                     if focus == 0:
@@ -206,8 +201,8 @@ def main():  # Função que promove o menu de início de Jogo
                     else:
                         pass
 
-        pygame.display.update()  # Atualizar display
-        relogio.tick(20)  # Time do Clock
+        pygame.display.update()
+        relogio.tick(20)
 
 
 if __name__ == '__main__':

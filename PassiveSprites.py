@@ -1,10 +1,18 @@
+# Libraries
 import pygame
+
+# -------------------------------------- #
+# VARIABLES
 
 # Parâmetros da Tela
 SCREENWIDTH = 945 #largura
 SCREENHEIGHT = 565 #altura
 
-#Simple player object
+# -------------------------------------- #
+# CLASSES
+# UNFINISHED !!
+
+
 class PassiveSprite(pygame.sprite.Sprite):
 
     # Initialization

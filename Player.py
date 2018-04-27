@@ -1,34 +1,39 @@
+# Libraries
 import pygame, sys
 import math
 
-#Simple player object
+# -------------------------------------- #
+# CLASSES
+
+
 class Player(pygame.sprite.Sprite):
     '''In main:
-    player = Player(parameters)
-    player.move()
-    player.update()
+    declaration: player = Player(parameters)
+    actions: player.move()
+    action: player.update()
     screen.blit(player.image,player.rect)'''
 
-    # Initialization
+    # -------------------------------------- #
+    # METHODS AND FUNCTIONS
     def __init__(self, x0, y0, angle0):
         pygame.sprite.Sprite.__init__(self)
         self.x = x0
         self.y = y0
-        self.original_image = pygame.image.load('./assets/car.png')
-        self.image = pygame.transform.scale(self.original_image,(30,20))
+        self.original_image = pygame.image.load('./Images/Icons/player.png')
+        self.image = pygame.transform.scale(self.original_image, (30, 20))
         self.original_image = self.image
 
-        #Player position
+        # Player position
         self.rect = self.image.get_rect()
-        self.rect.center = (x0,y0)
+        self.rect.center = (x0, y0)
 
-        #Direction flags
+        # Direction flags
         self.up = False
         self.down = False
         self.right = False
         self.left = False
 
-        #Movement parameters
+        # Movement parameters
         self.angle = angle0
         self.speed = 5
         self.dir = 0
@@ -54,7 +59,7 @@ class Player(pygame.sprite.Sprite):
             if event.key == pygame.K_d:
                 self.right = False
 
-    '''#Method to move object
+    '''Method to move object
     def move(self, terrain_factor):
         if self.down:
             self.y += self.speed*terrain_factor
@@ -64,7 +69,6 @@ class Player(pygame.sprite.Sprite):
             self.x -= self.speed*terrain_factor
         if self.right:
             self.x += self.speed*terrain_factor'''
-
 
     def move(self, terrain_factor, angle_step):
         if self.down and not self.up:
@@ -84,7 +88,9 @@ class Player(pygame.sprite.Sprite):
         self.y -= math.sin(self.angle) * self.speed*terrain_factor*self.dir
 
     def update_pos(self, angle_step):
-        #Update image rotation. Source: https://gamedev.stackexchange.com/questions/126353/how-to-rotate-an-image-in-pygame-without-losing-quality-or-increasing-size-or-mo
+        # Update image rotation. Source:
+        # https://gamedev.stackexchange.com/questions/
+        # 126353/how-to-rotate-an-image-in-pygame-without-losing-quality-or-increasing-size-or-mo
         self.image = pygame.transform.rotate(self.original_image, self.angle*180/math.pi+self.pitch * angle_step)
         x, y = self.rect.center  # Save its current center.
         self.rect = self.image.get_rect()  # Replace old rect with new rect.

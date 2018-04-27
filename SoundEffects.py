@@ -1,4 +1,9 @@
+# Libraries
 import pygame
+
+# -------------------------------------- #
+# METHODS
+
 
 def music_selection(level):
     if level.id == '1':
@@ -9,6 +14,7 @@ def music_selection(level):
     else:
         pygame.mixer.music.load('./assets/SoundEffects/Track3.mp3')
         pygame.mixer.music.play()
+
 
 def game_over_sound():
     pygame.mixer.music.load('./assets/SoundEffects/GameOver.mp3')

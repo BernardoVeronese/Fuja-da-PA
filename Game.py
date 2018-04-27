@@ -4,24 +4,39 @@ from GameOver import *
 from Player import *
 from Heli import *
 from Capivara import *
-from highscore import *
-from Functions import *
+from Highscore import *
+from Background import *
 from Soldier import *
 from pygame.locals import *
-from ObstaclesFase1 import *
+from Checkpoint import *
 from Constants import *
-from SoundEffects import *
+
 
 # Parâmetros da Tela
 SCREENWIDTH = 945 #largura
 SCREENHEIGHT = 565 #altura
 
 # Imagem de Pause
-pausa = Background('./assets/pause.png', [0, 0])
-gameover = Background('./assets/GAMEOVER.png', [0, 0])
-intro1 = Background('./assets/intro1.png', [0, 0])
-intro2 = Background('./assets/intro2.png', [0, 0])
-intro3 = Background('./assets/intro3.png', [0, 0])
+pausa = Background('./Images/State Screen/pausescreen.png', [0, 0])
+gameover = Background('./Images/State Screen/gameover_screen.png', [0, 0])
+intro1 = Background('./Images/Visual Screen/levelintro_1.png', [0, 0])
+intro2 = Background('./Images/Visual Screen/levelintro_2.png', [0, 0])
+intro3 = Background('./Images/Visual Screen/levelintro_3.png', [0, 0])
+
+def music_selection(level):
+    if level.id == '1':
+        pass
+    elif level.id == '2':
+        pygame.mixer.music.load('./SoundEffects/Track2.mp3')
+        pygame.mixer.music.play()
+    else:
+        pygame.mixer.music.load('./SoundEffects/Track3.mp3')
+        pygame.mixer.music.play()
+
+
+def game_over_sound():
+    pygame.mixer.music.load('./SoundEffects/GameOver.mp3')
+    pygame.mixer.music.play()
 
 def pause(screen):
     screen.blit(pausa.image, pausa.rect)
@@ -36,12 +51,14 @@ def pause(screen):
                 return
         pygame.time.wait(20)
 
+
 def measure_terrain(player, level, screen):
     aux_terrain = 1
     upper_front_x, upper_front_y = player.x, player.y
-    if not level.Street(upper_front_x, upper_front_y, screen):
+    if not level.street(upper_front_x, upper_front_y):
         aux_terrain = 0.4
     return aux_terrain
+
 
 def game(level, screen):
 
@@ -53,9 +70,9 @@ def game(level, screen):
 
     #Level selection
     if level.id == '1':
-        image = Background('./assets/Map_1.png', [0, 0])
-        point1 = checkpoint(842, 50)
-        point2 = checkpoint(130, 480)
+        image = Background('./Images/Maps/map_1.png', [0, 0])
+        point1 = Checkpoint(842, 50)
+        point2 = Checkpoint(130, 480)
         screen.blit(intro1.image, intro1.rect)
         pygame.display.update()
         while True:  # wait for user to acknowledge and return
@@ -71,9 +88,9 @@ def game(level, screen):
                 break
             pygame.time.wait(20)
     elif level.id == '2':
-        image = Background('./assets/Map_2.png', [0, 0])
-        point1 = checkpoint(730, 30)
-        point2 = checkpoint(858, 500)
+        image = Background('./Images/Maps/map_2.png', [0, 0])
+        point1 = Checkpoint(730, 30)
+        point2 = Checkpoint(858, 500)
         screen.blit(intro2.image, intro2.rect)
         pygame.display.update()
         while True:  # wait for user to acknowledge and return
@@ -89,9 +106,9 @@ def game(level, screen):
                 break
             pygame.time.wait(20)
     else:
-        image = Background('./assets/Map_3.png', [0, 0])
-        point1 = checkpoint(20, 70)
-        point2 = checkpoint(900, 400)
+        image = Background('./Images/Maps/map_3.png', [0, 0])
+        point1 = Checkpoint(20, 70)
+        point2 = Checkpoint(900, 400)
         screen.blit(intro3.image, intro3.rect)
         pygame.display.update()
         while True:  # wait for user to acknowledge and return
@@ -123,7 +140,7 @@ def game(level, screen):
     #Class initialization
     object_group = pygame.sprite.Group()
     player = Player(player_x0, player_y0, player_angle)
-    heli = Heli(SCREENWIDTH-1,SCREENHEIGHT-1, heli_angle)
+    heli = Heli(1, SCREENHEIGHT-1, heli_angle)
     second_heli = Heli(heli_x0, heli_y0, heli_angle)
     capivara = Capivara()
     soldier = Soldier()
@@ -161,7 +178,8 @@ def game(level, screen):
             score += int(1000 - 5 * (time_flag / 1000 - time_initial / 1000))  # modelo de Score
 
         if level.vencedor():
-            get_score(screen, level.file(), score)
+            arq = level.file()
+            get_score(screen, arq, score)
             break
 
         #Player movement

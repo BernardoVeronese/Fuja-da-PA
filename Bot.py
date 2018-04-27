@@ -1,6 +1,11 @@
+# Libraries
 import pygame
 
-#Simple player object
+# -------------------------------------- #
+# CLASSES
+# UNFINISHED !!
+
+
 class Bot(pygame.sprite.Sprite):
 
     # Initialization
@@ -17,11 +22,11 @@ class Bot(pygame.sprite.Sprite):
         #self.angle = angle
         #self.speed = speed
 
-    #Method to draw object
+    # Method to draw object
     def draw(self):
         window.blit(self.image,(self.x,self.y))#mudar para load image algo
 
-    #Method to move object (special input of dx and dy)
+    # Method to move object (special input of dx and dy)
     def follow(self, playerx, playery):
         if self.in_node:
             #self.next_node = Djikstra algorithm

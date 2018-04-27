@@ -1,8 +1,22 @@
+# Libraries
 import math
+import pygame
+import sys
+
+# -------------------------------------- #
+# VARIABLES
 
 # Parâmetros da Tela
-SCREENWIDTH = 945 #largura
-SCREENHEIGHT = 565 #altura
+SCREENWIDTH = 945
+SCREENHEIGHT = 565
+
+# Terrain parameters
+angle_step = 7.5
+terrain_factor = 1
+
+# -------------------------------------- #
+# METHODS
+
 
 # Initialization variables
 def player_constants(level):
@@ -18,7 +32,7 @@ def player_constants(level):
         player_x0 = 0.445 * SCREENWIDTH
         player_y0 = 0.1 * SCREENHEIGHT
         player_angle = 3*math.pi/2
-    return (player_x0, player_y0, player_angle)
+    return player_x0, player_y0, player_angle
 
 
 def heli_constants(level):
@@ -37,9 +51,11 @@ def heli_constants(level):
         heli_y0 = 0.32 * SCREENHEIGHT
         heli_angle = 0
         patrol_radius = 65
-    return (heli_x0, heli_y0, heli_angle, patrol_radius)
+    return heli_x0, heli_y0, heli_angle, patrol_radius
 
 
-# Terrain parameters
-angle_step = 7.5
-terrain_factor = 1
+def quitgame():
+    pygame.quit()
+    sys.exit()
+
+

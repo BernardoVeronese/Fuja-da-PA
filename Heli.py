@@ -1,12 +1,18 @@
+# Libraries
 import pygame
 import math
 
+# -------------------------------------- #
+# VARIABLES
 
-#Constants
+# Constants
 APPROACH_CONSTANT = 4
 ANGLE_STEP = 0.05
 
-#Simple player object
+# -------------------------------------- #
+# CLASSES
+
+
 class Heli(pygame.sprite.Sprite):
     '''In main:
         heli = Heli(parameters)
@@ -15,11 +21,11 @@ class Heli(pygame.sprite.Sprite):
         screen.blit(heli.image,heli.rect)'''
 
     # Initialization
-    def __init__(self,x0,y0,angle0):
+    def __init__(self, x0, y0,angle0):
         pygame.sprite.Sprite.__init__(self)
         self.x = x0
         self.y = y0
-        self.image = pygame.image.load('./assets/heli.png')
+        self.image = pygame.image.load('./Images/Icons/helicopter.png')
         self.image = pygame.transform.scale(self.image, (77, 42))
 
         # Helicopter position
@@ -35,17 +41,17 @@ class Heli(pygame.sprite.Sprite):
         self.speed = 3
         self.left_state = True
 
-    #Method to move object (special input of dx and dy)
+    # Method to move object (special input of dx and dy)
     def follow(self, playerx, playery):
-        #Calculating new direction
+        # Calculating new direction
         self.directionx = playerx-self.x
         self.directiony = playery-self.y
         self.distance = math.sqrt(self.directionx*self.directionx+self.directiony*self.directiony)
         self.directionx /= self.distance
         self.directiony /= self.distance
-        #self.new_angle = math.atan2(self.directiony, self.directionx)
-        #self.angle %= 2 * math.pi
-        #Updating course
+        # self.new_angle = math.atan2(self.directiony, self.directionx)
+        # self.angle %= 2 * math.pi
+        # Updating course
         self.x += self.speed*self.directionx
         self.y += self.speed*self.directiony
 
@@ -59,7 +65,10 @@ class Heli(pygame.sprite.Sprite):
             return True
 
     def update_pos(self, playerx):
-        # Update image rotation. Source: https://gamedev.stackexchange.com/questions/126353/how-to-rotate-an-image-in-pygame-without-losing-quality-or-increasing-size-or-mo
+        # Update image rotation. Source:
+        # https://gamedev.stackexchange.com/
+        # questions/126353/how-to-rotate-an-image-in-pygame-without-losing-quality-or-increasing-
+        # size-or-mo
         '''self.image = pygame.transform.rotate(self.original_image, -self.angle*180/math.pi)
         self.angle = self.new_angle
         self.angle %= 2 * math.pi'''
@@ -77,4 +86,3 @@ class Heli(pygame.sprite.Sprite):
         self.y = y_locus+math.sin(self.angle) * radius
         self.angle -= ANGLE_STEP
         self.angle %= 2 * math.pi
-
