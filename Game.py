@@ -99,7 +99,7 @@ def game(level, screen):
             screen.blit(soldier.image, soldier.rect)
 
         #Game over verification
-        #game_over.measure_state(player, object_group)
+        game_over.measure_state(player, object_group)
 
         # Atualização de Score e Verificação de Flags das etapas dos Jogos
         if level.verificarmissao(player.x, player.y, screen):
