@@ -9,6 +9,7 @@ from Functions import *
 from Soldier import *
 from pygame.locals import *
 from Constants import *
+from SoundEffects import *
 
 # Parâmetros da Tela
 SCREENWIDTH = 945 #largura
@@ -43,6 +44,7 @@ def game(level, screen):
     score = 0
     time_initial = pygame.time.get_ticks()
     clock = pygame.time.Clock()
+    music_selection(level)
 
     #Level selection
     if level.id == '1':
@@ -55,6 +57,7 @@ def game(level, screen):
         image = Background('./assets/Map_3.png', [0, 0])
 
     screen.blit(image.image, image.rect)
+    pygame.mixer.music.play()
 
     #Initialization variables
     player_x0, player_y0, player_angle = player_constants(level)
@@ -136,6 +139,7 @@ def game(level, screen):
         clock.tick(20)  # Time do relógio
 
     if game_over.state:
+        pygame.mixer.music.stop()
         screen.blit(gameover.image, gameover.rect)
         pygame.display.update()
         while True:  # wait for user to acknowledge and return
