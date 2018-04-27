@@ -4,6 +4,15 @@ from random import *
 
 #Constants
 COUNTER_THRESHOLD = 200
+GRASS = (169, 209, 142)
+
+
+def Grass(x, y, screen):
+    x = int(x)
+    y = int(y)
+    if screen.get_at((x, y)) == GRASS:
+        return True
+    return False
 
 #Simple player object
 class Capivara(pygame.sprite.Sprite):
@@ -63,7 +72,7 @@ class Capivara(pygame.sprite.Sprite):
     def killer(self, level, screen, screen_size):#screen_size addition later
         x_pos = randint(0, screen_size) #Change
         y_pos = randint(0, screen_size)
-        while level.Street(x_pos, y_pos, screen):
+        while not Grass(x_pos, y_pos, screen):
             x_pos = randint(0, screen_size)
             y_pos = randint(0, screen_size)
         self.x = x_pos
