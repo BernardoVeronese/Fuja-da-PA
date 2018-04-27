@@ -37,7 +37,7 @@ class fase1:
         screen.blit(background.image, background.rect)
 
     def file(self):
-        return "./data_highscore/highscore1.txt"
+        return './data_highscore/highscore1.txt'
 
     def obstaculo(self, x, y, screen):
         x = int(x)
@@ -97,7 +97,7 @@ class fase2:
     OBSTACULO3 = (0, 0, 0)
     OBSTACULO4 = (37, 102, 3)
     RED = (255, 0, 0)
-    STREET = (68, 57, 55)
+    STREET = (77, 77, 77)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
     YELLOW = (248, 202, 0)
@@ -110,7 +110,7 @@ class fase2:
         screen.blit(background.image, background.rect)
 
     def file(self):
-        return "./data_highscore/highscore2.txt"
+        return './data_highscore/highscore2.txt'
 
     def obstaculo(self, x, y, screen):
         x = int(x)
@@ -175,7 +175,7 @@ class fase3:
     OBSTACULO3 = (0, 0, 0)
     OBSTACULO4 = (37, 102, 3)
     RED = (255, 0, 0)
-    STREET = (68, 57, 55)
+    STREET = (77, 77, 77)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
     YELLOW = (248, 202, 0)
@@ -188,7 +188,7 @@ class fase3:
         screen.blit(background.image, background.rect)
 
     def file(self):
-        return "./data_highscore/highscore2.txt"
+        return './data_highscore/highscore2.txt'
 
     def obstaculo(self, x, y, screen):
         x = int(x)
