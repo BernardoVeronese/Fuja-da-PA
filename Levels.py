@@ -37,7 +37,7 @@ class fase1:
         screen.blit(background.image, background.rect)
 
     def file(self):
-        return './data_highscore/highscore1.txt'
+        return "./data_highscore/highscore1.txt"
 
     def obstaculo(self, x, y, screen):
         x = int(x)
@@ -53,18 +53,13 @@ class fase1:
         y = int(y)
         if screen.get_at((x, y)) == fase1.YELLOW and x > 470:
             fase1.flag1 = True
-            fase1.time_flag1 = pygame.time.get_ticks()
-            Font = pygame.font.SysFont("arial", 20, True)
-            pygame.draw.rect(screen, fase1.GRASS, (50, 60, 450, 900), 0)
-            txt_surf = Font.render("Fase 1 completa!", True, fase1.WHITE)
-            txt_rect = txt_surf.get_rect()
-            screen.blit(txt_surf, txt_rect)
-            pygame.displat.update()
-
-        if screen.get_at((x, y)) == fase1.YELLOW and x < 470:
+            return True
+        elif screen.get_at((x, y)) == fase1.YELLOW and x < 470:
             if fase1.flag1:
                 fase1.flag2 = True
                 fase1.time_flag2 = pygame.time.get_ticks()
+                return True
+        return False
 
     def vencedor(self):
         if fase1.flag1 and fase1.flag2:
@@ -102,7 +97,7 @@ class fase2:
     OBSTACULO3 = (0, 0, 0)
     OBSTACULO4 = (37, 102, 3)
     RED = (255, 0, 0)
-    STREET = (77, 77, 77)
+    STREET = (68, 57, 55)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
     YELLOW = (248, 202, 0)
@@ -115,7 +110,7 @@ class fase2:
         screen.blit(background.image, background.rect)
 
     def file(self):
-        return './data_highscore/highscore2.txt'
+        return "./data_highscore/highscore2.txt"
 
     def obstaculo(self, x, y, screen):
         x = int(x)
@@ -180,7 +175,7 @@ class fase3:
     OBSTACULO3 = (0, 0, 0)
     OBSTACULO4 = (37, 102, 3)
     RED = (255, 0, 0)
-    STREET = (77, 77, 77)
+    STREET = (68, 57, 55)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
     YELLOW = (248, 202, 0)
@@ -193,7 +188,7 @@ class fase3:
         screen.blit(background.image, background.rect)
 
     def file(self):
-        return './data_highscore/highscore2.txt'
+        return "./data_highscore/highscore2.txt"
 
     def obstaculo(self, x, y, screen):
         x = int(x)

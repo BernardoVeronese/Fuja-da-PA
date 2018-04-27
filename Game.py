@@ -101,7 +101,11 @@ def game(level, screen):
 
         # Atualização de Score e Verificação de Flags das etapas dos Jogos
         if level.verificarmissao(player.x, player.y, screen):
-            score += 1000 - 5 * (level.time_flag / 1000 - time_initial / 1000)  # modelo de Score
+            time_flag = pygame.time.get_ticks()
+            Font = pygame.font.SysFont("arial", 20, True)
+            txt_surf = Font.render("CHECKPOINT ACEITO", True, WHITE)
+            screen.blit(txt_surf, (900, 450))
+            score += int(1000 - 5 * (time_flag / 1000 - time_initial / 1000))  # modelo de Score
 
         if level.vencedor():
             get_score(screen, level.file(), score)
