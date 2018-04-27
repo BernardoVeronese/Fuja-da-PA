@@ -4,18 +4,9 @@ from random import *
 
 #Constants
 COUNTER_THRESHOLD = 200
-GRASS = (169, 209, 142)
-
-
-def Grass(x, y, screen):
-    x = int(x)
-    y = int(y)
-    if screen.get_at((x, y)) == GRASS:
-        return True
-    return False
 
 #Simple player object
-class Capivara(pygame.sprite.Sprite):
+class Soldier(pygame.sprite.Sprite):
 
     # Initialization
     def __init__(self):
@@ -23,12 +14,12 @@ class Capivara(pygame.sprite.Sprite):
         self.x = 0
         self.y = 0
         self.state = False
-        self.original_image = pygame.image.load('./assets/capivara.png')#change path directory
-        self.image = pygame.transform.scale(self.original_image, (70, 70))
+        self.original_image = pygame.image.load('./assets/soldier.png')#change path directory
+        self.image = pygame.transform.scale(self.original_image, (100, 100))
         self.change_state = False
         self.counter = 0
 
-        # Capivara position
+        #Soldier position
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
 
@@ -72,13 +63,7 @@ class Capivara(pygame.sprite.Sprite):
     def killer(self, level, screen, screen_size):#screen_size addition later
         x_pos = randint(0, screen_size) #Change
         y_pos = randint(0, screen_size)
-        while not Grass(x_pos, y_pos, screen):
-            x_pos = randint(0, screen_size)
-            y_pos = randint(0, screen_size)
         self.x = x_pos
         self.y = y_pos
         self.update_pos()
         self.state = False
-
-
-
