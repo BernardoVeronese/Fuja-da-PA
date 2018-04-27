@@ -7,7 +7,7 @@ SCREENHEIGHT = 565 #altura
 # Initialization variables
 def player_constants(level):
     if level.id == '1':
-        player_x0 = 0.7 * SCREENWIDTH
+        player_x0 = 0.5 * SCREENWIDTH
         player_y0 = 0.5 * SCREENHEIGHT
         player_angle = 0
     elif level.id == '2':

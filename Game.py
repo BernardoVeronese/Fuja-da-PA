@@ -110,7 +110,7 @@ def game(level, screen):
     screen.blit(image.image, image.rect)
     screen.blit(point1.image, point1.rect)
     screen.blit(point2.image, point2.rect)
-    pygame.mixer.music.play()
+
 
     #Initialization variables
     player_x0, player_y0, player_angle = player_constants(level)
