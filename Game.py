@@ -8,6 +8,7 @@ from highscore import *
 from Functions import *
 from Soldier import *
 from pygame.locals import *
+from Constants import *
 
 # Parâmetros da Tela
 SCREENWIDTH = 945 #largura
@@ -56,13 +57,8 @@ def game(level, screen):
     screen.blit(image.image, image.rect)
 
     #Initialization variables
-    player_x0 = 0.1*SCREENWIDTH
-    player_y0 = 0.27*SCREENHEIGHT
-    player_angle = 0
-
-    heli_x0 = 0.7*SCREENWIDTH
-    heli_y0 = 0.5*SCREENHEIGHT
-    heli_angle = 0
+    player_x0, player_y0, player_angle = player_constants(level)
+    heli_x0, heli_y0, heli_angle, patrol_radius = heli_constants(level)
 
     #Terrain parameters
     angle_step = 7.5
@@ -71,8 +67,8 @@ def game(level, screen):
     #Class initialization
     object_group = pygame.sprite.Group()
     player = Player(player_x0, player_y0, player_angle)
-    heli = Heli(heli_x0, heli_y0, heli_angle)
-    second_heli = Heli(heli_x0-50, heli_y0-50, heli_angle)
+    heli = Heli(SCREENWIDTH-1,SCREENHEIGHT-1, heli_angle)
+    second_heli = Heli(heli_x0, heli_y0, heli_angle)
     capivara = Capivara()
     soldier = Soldier()
     object_group.add(heli)
@@ -121,7 +117,7 @@ def game(level, screen):
         soldier.time_counter(level, screen, SCREENHEIGHT)
         player.update_pos(angle_step)
         heli.follow(player.x, player.y)
-        second_heli.patrol(heli_x0, heli_y0)
+        second_heli.patrol(heli_x0, heli_y0, patrol_radius)
         heli.update_pos(player.x)
         second_heli.update_pos(player.x)
         screen.blit(image.image, image.rect)
@@ -131,7 +127,9 @@ def game(level, screen):
             screen.blit(soldier.image, soldier.rect)
 
         #Game over verification
+        object_group.add(soldier)
         game_over.measure_state(player, object_group)
+        object_group.remove(soldier)
 
         #Screen update
         pygame.display.update()

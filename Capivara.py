@@ -3,7 +3,7 @@ import math
 from random import *
 
 #Constants
-COUNTER_THRESHOLD = 200
+COUNTER_THRESHOLD = 150
 GRASS = (62, 192, 96)
 
 
@@ -20,8 +20,8 @@ class Capivara(pygame.sprite.Sprite):
     # Initialization
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.x = 0
-        self.y = 0
+        self.x = -50
+        self.y = -50
         self.state = False
         self.original_image = pygame.image.load('./assets/capivara.png')#change path directory
         self.image = pygame.transform.scale(self.original_image, (70, 70))
