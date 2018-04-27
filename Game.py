@@ -15,7 +15,6 @@ SCREENHEIGHT = 565 #altura
 
 # Imagem de Pause
 pausa = Background('./assets/pause.png', [0, 0])
-gameover = Background('./assets/GAMEOVER.png', [0, 0])
 
 def pause(screen):
     screen.blit(pausa.image, pausa.rect)
@@ -99,14 +98,6 @@ def game(level, screen):
         screen.blit(image.image, image.rect)
         terrain_factor = measure_terrain(player, level, screen)
 
-        # Atualização de Score e Verificação de Flags das etapas dos Jogos
-        if level.verificarmissao(player.x, player.y, screen):
-            score += 1000 - 5 * (level.time_flag / 1000 - time_initial / 1000)  # modelo de Score
-
-        if level.vencedor():
-            get_score(screen, level.file(), score)
-            break
-
         #Player movement
         player.move(terrain_factor, angle_step)
 
@@ -116,10 +107,10 @@ def game(level, screen):
         capivara.time_counter(level, screen, SCREENHEIGHT)
         soldier.time_counter(level, screen, SCREENHEIGHT)
         player.update_pos(angle_step)
-        #heli.follow(player.x, player.y)
-        #second_heli.patrol(heli_x0, heli_y0)
-        #heli.update_pos(player.x)
-        #second_heli.update_pos(player.x)
+        heli.follow(player.x, player.y)
+        second_heli.patrol(heli_x0, heli_y0)
+        heli.update_pos(player.x)
+        second_heli.update_pos(player.x)
         screen.blit(image.image, image.rect)
         screen.blit(player.image, player.rect)
         object_group.draw(screen)
@@ -129,21 +120,15 @@ def game(level, screen):
         #Game over verification
         game_over.measure_state(player, object_group)
 
+        # Atualização de Score e Verificação de Flags das etapas dos Jogos
+        if level.verificarmissao(player.x, player.y, screen):
+            score += 1000-5*(level.time_flag/1000-time_initial/1000) #modelo de Score
+
+        if level.vencedor():
+            get_score(screen, level.file, score)
+            game_over.state = True
+
         #Screen update
         pygame.display.update()
         clock.tick(20)  # Time do relógio
-
-    if game_over.state:
-        screen.blit(gameover.image, gameover.rect)
-        pygame.display.update()
-        while True:  # wait for user to acknowledge and return
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.KEYDOWN and event.key in [pygame.K_RETURN, pygame.K_KP_ENTER,
-                                                                  pygame.K_BACKSPACE]:
-                    return
-            pygame.time.wait(20)
-    #else:
 
