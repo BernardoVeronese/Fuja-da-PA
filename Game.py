@@ -24,9 +24,10 @@ intro2 = Background('./Images/Visual Screen/levelintro2.png', [0, 0])
 intro3 = Background('./Images/Visual Screen/levelintro3.png', [0, 0])
 
 def music_selection(level):
-    if level.id == '1':
-        pass
-    elif level.id == '2':
+    if level.id == 0:
+        pygame.mixer.music.load('./SoundEffects/Track1.mp3')
+        pygame.mixer.music.play()
+    elif level.id == 1:
         pygame.mixer.music.load('./SoundEffects/Track2.mp3')
         pygame.mixer.music.play()
     else:
