@@ -23,14 +23,13 @@ class Level:
 
     # -------------------------------------- #
     # METHODS AND FUNCTIONS
-    def __init__(self, screen, levelmap, file):
-        self.id = '1'
-        self.screen = screen
+    def __init__(self, levelmap, file, focus):
+        self.id = focus
         self.map = levelmap
         self.filet = file
 
-    def mapa(self):
-        self.screen.blit(self.map.image, self.map.rect)
+    def mapa(self, screen):
+        screen.blit(self.map.image, self.map.rect)
 
     def file(self):
         return self.filet
@@ -51,9 +50,9 @@ class Level:
             return True
         return False
 
-    def street(self, x, y):
+    def street(self, x, y, screen):
         x = int(x)
         y = int(y)
-        if self.screen.get_at((x, y)) in (STREET, WHITE, WHITE2):
+        if screen.get_at((x, y)) in (STREET, WHITE, WHITE2):
             return True
         return False

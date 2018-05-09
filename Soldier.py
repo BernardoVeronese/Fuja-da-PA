@@ -52,7 +52,7 @@ class Soldier(pygame.sprite.Sprite):
     def spawner(self, level, screen, screen_size):  # screen_size addition later
         x_pos = randint(0, screen_size)  # Change
         y_pos = randint(0, screen_size)
-        while not level.street(x_pos, y_pos):
+        while not level.street(x_pos, y_pos, screen):
             x_pos = randint(0, screen_size)
             y_pos = randint(0, screen_size)
         self.x = x_pos

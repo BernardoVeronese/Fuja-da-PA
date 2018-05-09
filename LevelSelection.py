@@ -39,14 +39,17 @@ def nivel(screen):
                     # Se a posição do clique está dentro do escopo dos itens
                     if 287 < event.pos[0] < 631 and 385 < event.pos[1] < 535:
                         if event.pos[1] < 435:
-                            game(Level(screen, Background('./Images/Maps/map_1.png', [0, 0]),
-                                       './Data_highscore/highscore1.txt'), screen)
+                            focus = 0
+                            game(Level(Background('./Images/Maps/map_1.png', [0, 0]),
+                                       './Data_highscore/highscore1.txt', focus), screen)
                         elif event.pos[1] < 485:
-                            game(Level(screen, Background('./Images/Maps/map_2.png', [0, 0]),
-                                       './Data_highscore/highscore2.txt'), screen)
+                            focus = 1
+                            game(Level(Background('./Images/Maps/map_2.png', [0, 0]),
+                                       './Data_highscore/highscore2.txt', focus), screen)
                         else:
-                            game(Level(screen, Background('./Images/Maps/map_3.png', [0, 0]),
-                                       './Data_highscore/highscore3.txt'), screen)
+                            focus = 2
+                            game(Level(Background('./Images/Maps/map_3.png', [0, 0]),
+                                       './Data_highscore/highscore3.txt', focus), screen)
             # 4to evento - Movimento do Mouse
             elif event.type == MOUSEMOTION:
                 # Se as posições do movimento estiverem dentro do escopo dos itens
@@ -72,14 +75,14 @@ def nivel(screen):
                 # Considerando teclas de Return e Espaço
                 elif event.key in (K_RETURN, K_SPACE, K_KP_ENTER):
                     if focus == 0:
-                        game(Level(screen, Background('./Images/Maps/map_1.png', [0, 0]),
-                                   './Data_highscore/highscore1.txt'), screen)
+                        game(Level(Background('./Images/Maps/map_1.png', [0, 0]),
+                                   './Data_highscore/highscore1.txt', focus), screen)
                     elif focus == 1:
-                        game(Level(screen, Background('./Images/Maps/map_2.png', [0, 0]),
-                                   './Data_highscore/highscore2.txt'), screen)
+                        game(Level(Background('./Images/Maps/map_2.png', [0, 0]),
+                                   './Data_highscore/highscore2.txt', focus), screen)
                     elif focus == 2:
-                        game(Level(screen, Background('./Images/Maps/map_3.png', [0, 0]),
-                                   './Data_highscore/highscore3.txt'), screen)
+                        game(Level(Background('./Images/Maps/map_3.png', [0, 0]),
+                                   './Data_highscore/highscore3.txt', focus), screen)
                 elif event.key == K_BACKSPACE:
                     return
                 else:

@@ -33,7 +33,7 @@ levelselection = [Capa12, Capa22, Capa32]  # Level seletion options
 # State Screen definitions
 tutorial = Background('./Images/State Screen/howtoplay_screen.png', [0, 0])  # How to Play instructions
 
-# RGB Colors
+# RGB Colorsd
 WHITE = (255, 255, 255)
 BLACK = (0,   0,   0)
 RED = (155,   0,   0)

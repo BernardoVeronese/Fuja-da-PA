@@ -20,11 +20,11 @@ terrain_factor = 1
 
 # Initialization variables
 def player_constants(level):
-    if level.id == '1':
+    if level.id == 0:
         player_x0 = 0.43 * SCREENWIDTH
         player_y0 = 0.3 * SCREENHEIGHT
         player_angle = 0
-    elif level.id == '2':
+    elif level.id == 1:
         player_x0 = 0.035 * SCREENWIDTH
         player_y0 = 0.168 * SCREENHEIGHT
         player_angle = 0
@@ -36,12 +36,12 @@ def player_constants(level):
 
 
 def heli_constants(level):
-    if level.id == '1':
+    if level.id == 0:
         heli_x0 = 0.7 * SCREENWIDTH
         heli_y0 = 0.5 * SCREENHEIGHT
         heli_angle = 0
         patrol_radius = 60
-    elif level.id == '2':
+    elif level.id == 1:
         heli_x0 = 0.8 * SCREENWIDTH
         heli_y0 = 0.32 * SCREENHEIGHT
         heli_angle = 0

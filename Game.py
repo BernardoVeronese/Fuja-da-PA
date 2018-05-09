@@ -19,9 +19,9 @@ SCREENHEIGHT = 565 #altura
 # Imagem de Pause
 pausa = Background('./Images/State Screen/pausescreen.png', [0, 0])
 gameover = Background('./Images/State Screen/gameover_screen.png', [0, 0])
-intro1 = Background('./Images/Visual Screen/levelintro_1.png', [0, 0])
-intro2 = Background('./Images/Visual Screen/levelintro_2.png', [0, 0])
-intro3 = Background('./Images/Visual Screen/levelintro_3.png', [0, 0])
+intro1 = Background('./Images/Visual Screen/levelintro1.png', [0, 0])
+intro2 = Background('./Images/Visual Screen/levelintro2.png', [0, 0])
+intro3 = Background('./Images/Visual Screen/levelintro3.png', [0, 0])
 
 def music_selection(level):
     if level.id == '1':
@@ -55,7 +55,7 @@ def pause(screen):
 def measure_terrain(player, level, screen):
     aux_terrain = 1
     upper_front_x, upper_front_y = player.x, player.y
-    if not level.street(upper_front_x, upper_front_y):
+    if not level.street(upper_front_x, upper_front_y, screen):
         aux_terrain = 0.4
     return aux_terrain
 
@@ -69,8 +69,7 @@ def game(level, screen):
     music_selection(level)
 
     #Level selection
-    if level.id == '1':
-        image = Background('./Images/Maps/map_1.png', [0, 0])
+    if level.id == 0:
         point1 = Checkpoint(842, 50)
         point2 = Checkpoint(130, 480)
         screen.blit(intro1.image, intro1.rect)
@@ -87,8 +86,7 @@ def game(level, screen):
             if boolean:
                 break
             pygame.time.wait(20)
-    elif level.id == '2':
-        image = Background('./Images/Maps/map_2.png', [0, 0])
+    elif level.id == 1:
         point1 = Checkpoint(730, 30)
         point2 = Checkpoint(858, 500)
         screen.blit(intro2.image, intro2.rect)
@@ -106,7 +104,6 @@ def game(level, screen):
                 break
             pygame.time.wait(20)
     else:
-        image = Background('./Images/Maps/map_3.png', [0, 0])
         point1 = Checkpoint(20, 70)
         point2 = Checkpoint(900, 400)
         screen.blit(intro3.image, intro3.rect)
@@ -124,7 +121,7 @@ def game(level, screen):
                 break
             pygame.time.wait(20)
 
-    screen.blit(image.image, image.rect)
+    level.mapa(screen)
     screen.blit(point1.image, point1.rect)
     screen.blit(point2.image, point2.rect)
 
@@ -136,6 +133,9 @@ def game(level, screen):
     #Terrain parameters
     angle_step = 7.5
     terrain_factor = 1
+    cont = 0
+    Font = pygame.font.SysFont("arial", 20, True)
+    txt_surf = Font.render("", True, WHITE)
 
     #Class initialization
     object_group = pygame.sprite.Group()
@@ -165,16 +165,21 @@ def game(level, screen):
                 pause(screen)
             player.handle_event(event)
         #Handle terrain
-        screen.blit(image.image, image.rect)
+        level.mapa(screen)
         terrain_factor = measure_terrain(player, level, screen)
+
+        if cont == 0:
+            Font = pygame.font.SysFont("arial", 20, True)
+            txt_surf = Font.render("", True, WHITE)
+        else:
+            cont -= 1
 
         # Atualização de Score e Verificação de Flags das etapas dos Jogos
         if level.verificarmissao(player, point1, point2):
             time_flag = pygame.time.get_ticks()
-            Font = pygame.font.SysFont("arial", 20, True)
+            Font = pygame.font.SysFont("arial", 24, True)
             txt_surf = Font.render("CHECKPOINT ACEITO", True, WHITE)
-            screen.blit(txt_surf, (700, 450))
-            pygame.display.update()
+            cont = 45
             score += int(1000 - 5 * (time_flag / 1000 - time_initial / 1000))  # modelo de Score
 
         if level.vencedor():
@@ -195,10 +200,11 @@ def game(level, screen):
         second_heli.patrol(heli_x0, heli_y0, patrol_radius)
         heli.update_pos(player.x)
         second_heli.update_pos(player.x)
-        screen.blit(image.image, image.rect)
+        level.mapa(screen)
         screen.blit(player.image, player.rect)
         screen.blit(point1.image, point1.rect)
         screen.blit(point2.image, point2.rect)
+        screen.blit(txt_surf, (600, 450))
         object_group.draw(screen)
         if soldier.state:
             screen.blit(soldier.image, soldier.rect)

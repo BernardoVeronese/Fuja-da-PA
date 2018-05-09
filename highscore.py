@@ -51,7 +51,7 @@ def read_from_file_and_find_highscore(file_name):
 
 # Escrita de Score de um Jogo no arquivo de Texto
 def write_to_file(file_name, your_name, points):
-    score_file = open(file_name, 'w')
+    score_file = open(file_name, 'a')
     print(your_name + ",", points, file=score_file)
     score_file.close()
 
@@ -144,6 +144,8 @@ def enterbox(screen):
                 elif inkey == 8:  # backspace key
                     name = name[:-1]
                 elif inkey <= 300:  # characters keys
+                    if pygame.key.get_mods() & pygame.KMOD_SHIFT and 122 >= inkey >= 97:
+                        inkey -= 32
                     name += chr(inkey)
 
         if name == "":
