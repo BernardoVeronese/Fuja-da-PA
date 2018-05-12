@@ -184,6 +184,7 @@ def game(level, screen):
             score += int(1000 - 5 * (time_flag / 1000 - time_initial / 1000))  # modelo de Score
 
         if level.vencedor():
+            pygame.mixer.music.stop()
             arq = level.file()
             get_score(screen, arq, score)
             break
